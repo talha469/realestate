@@ -1,0 +1,15 @@
+.video__sidebar{
+    position: absolute;
+    top: 70%;
+    right: 15px;
+    color: white;
+}
+
+.transparent__button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    /* transform: rotate(-45deg); */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }

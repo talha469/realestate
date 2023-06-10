@@ -1,0 +1,15 @@
+.video__Footer{
+    position: relative;
+    bottom: 150px;
+    color: white;
+    display: flex;
+    margin-left: 10px;
+    text-align: center;
+}
+
+.video__footer_Icon {
+    font-size: 3em;
+    margin-left: 5px;
+    position: relative;
+  }
+  
