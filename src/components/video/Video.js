@@ -1,37 +1,84 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+import { Stack, Box } from '@mui/material';
+import { PlayArrow, Pause } from '@mui/icons-material';
 import Footer from '../footer/Footer';
 import Sidebar from '../sidebar/Sidebar';
-import './Video.css'
+import './Video.css';
 
-function Video() {
+const Video = ({ videoDetails, isPlaying, onVideoToggle }) => {
+  const videoRef = useRef(null);
 
-  const[play, setPlay] = useState(false);
-  const videoRef = useRef(null); 
-  
-  const onVideoPress = () => {
-    if(play){
-      videoRef.current.pause();
-      setPlay(false);
-    }
-    else{
+  useEffect(() => {
+    if (isPlaying) {
       videoRef.current.play();
-      setPlay(true);
+    } else {
+      videoRef.current.pause();
     }
-  }
+  }, [isPlaying]);
+
+  const onVideoPress = () => {
+    onVideoToggle(videoDetails.videoID);
+  };
 
   return (
-    <div className='video'>
-        <video className='video__player'
-        onClick={onVideoPress}
-        ref={videoRef} 
-        loop
-        src='https://dtovy3vq4hztk.cloudfront.net/pexels-anastasia-shuraeva-7647339-540x960-24fps (1).mp4'>          
-        </video>
-        <Footer/>
-        <Sidebar/>
-    </div>
-    
-  )
-}
 
-export default Video
+    <Stack>
+      <Box>
+      <div className="video">
+      <video
+        className="video__player"
+        onClick={onVideoPress}
+        ref={videoRef}
+        loop
+        src={videoDetails?.awspath}
+      ></video>
+      {!isPlaying && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '40%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            color: 'gray',
+            fontSize: '4rem',
+            cursor: 'pointer',
+            height: '50px',
+            width: '50px',
+            zIndex: 1,
+          }}
+          onClick={onVideoPress}
+        >
+          <PlayArrow sx={{ height: '100px', width: '100px', opacity: '0.5' }} />
+        </Box>
+      )}
+      {isPlaying && (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            color: 'gray',
+            fontSize: '4rem',
+            cursor: 'pointer',
+            height: '50px',
+            width: '50px',
+            zIndex: 1,
+          }}
+          onClick={onVideoPress}
+        >
+        </Box>
+      )}
+    </div>
+      </Box>
+      <Box>
+      <Footer videoDetails={videoDetails} />
+      <Sidebar />
+      </Box>
+    </Stack>
+
+    
+  );
+};
+
+export default Video;

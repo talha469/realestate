@@ -1,5 +1,5 @@
 .video__Footer{
-    position: relative;
+    position: absolute;
     bottom: 150px;
     color: white;
     display: flex;

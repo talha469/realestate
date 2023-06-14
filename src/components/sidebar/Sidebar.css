@@ -9,7 +9,7 @@
     background-color: transparent;
     border: none;
     color: white;
-    /* transform: rotate(-45deg); */
+     transform: rotate(-45deg); 
     -webkit-tap-highlight-color: transparent;
     outline: none;
   }
