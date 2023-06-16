@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/system';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,40 +11,53 @@ const StyledDialogTitle = styled(DialogTitle)`
 `;
 
 const SendForm = ({ onClose, onSubmit, videoData }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [selectedVideoData, setSelectedVideoData] = useState('');  
-    const [submissionSuccess, setSubmissionSuccess] = useState(false);
-    
-  
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      const formData = {
-        name,
-        email,
-        message,
-        videoID,
-        awspath,dealType, price, bedrooms, bathrooms, zip, city, googleMapAddress, isPlaying
-      };
-      onSubmit(formData);
-      setName('');
-      setEmail('');
-      setMessage('');
-      setSubmissionSuccess(true);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    let timeout;
+
+    if (isSubmitted) {
+      timeout = setTimeout(() => {
+        setIsSubmitted(false);
+      }, 2000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [isSubmitted]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      name,
+      email,
+      message,
     };
-  
-    const { videoID, awspath, dealType, price, bedrooms, bathrooms, zip, city, googleMapAddress, isPlaying } = videoData;
-  
-    return (
-      <Dialog open={true} onClose={onClose}>
-        <StyledDialogTitle>
-          Contact us
-          <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
-            <CloseIcon />
-          </IconButton>
-        </StyledDialogTitle>
-        <DialogContent>
+    onSubmit(formData);
+    setName('');
+    setEmail('');
+    setMessage('');
+    setIsSubmitted(true);
+  };
+
+  const { videoID, awspath, dealType, price, bedrooms, bathrooms, zip, city, googleMapAddress, isPlaying } = videoData;
+
+  return (
+    <Dialog open={true} onClose={onClose}>
+      <StyledDialogTitle>
+        Contact us
+        <IconButton edge="end" color="inherit" onClick={onClose} aria-label="close">
+          <CloseIcon />
+        </IconButton>
+      </StyledDialogTitle>
+      <DialogContent>
+        {isSubmitted ? (
+          <Typography variant="h6" align="center" color="primary">
+            Thank you for your submission!
+          </Typography>
+        ) : (
           <form onSubmit={handleSubmit}>
             <TextField
               label="Name"
@@ -55,7 +68,7 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
               margin="normal"
               required
             />
-  
+
             <TextField
               label="Email Address"
               variant="outlined"
@@ -65,7 +78,7 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
               margin="normal"
               required
             />
-  
+
             <TextField
               label="Message"
               variant="outlined"
@@ -76,38 +89,38 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
               fullWidth
               margin="normal"
             />
-  
-          <Typography sx={{ display: 'flex', flexWrap: 'wrap' }}>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>Bathrooms:</strong> {bathrooms}
-            </p>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>Bedrooms:</strong> {bedrooms}
-            </p>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>City:</strong> {city}
-            </p>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>Deal Type:</strong> {dealType}
-            </p>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>Price:</strong> ${price}
-            </p>
-            <p style={{ marginRight: '1rem' }}>
-              <strong>Google Location:</strong> {googleMapAddress}
-            </p>
-          </Typography>
 
-  
+            <Typography sx={{ display: 'flex', flexWrap: 'wrap' }}>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>Bathrooms:</strong> {bathrooms}
+              </p>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>Bedrooms:</strong> {bedrooms}
+              </p>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>City:</strong> {city}
+              </p>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>Deal Type:</strong> {dealType}
+              </p>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>Price:</strong> ${price}
+              </p>
+              <p style={{ marginRight: '1rem' }}>
+                <strong>Google Location:</strong> {googleMapAddress}
+              </p>
+            </Typography>
+
             <DialogActions>
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
+              <Button variant="contained" color="primary" type="submit">
+                Submit
+              </Button>
             </DialogActions>
           </form>
-        </DialogContent>
-      </Dialog>
-    );
-  };
-  
+        )}
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 export default SendForm;
