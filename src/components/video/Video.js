@@ -4,8 +4,9 @@ import { PlayArrow, Pause } from '@mui/icons-material';
 import Footer from '../footer/Footer';
 import Sidebar from '../sidebar/Sidebar';
 import './Video.css';
+import SendForm from '../Contact/SendForm';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick  }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -23,13 +24,14 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle }) => {
   return (
 
     <Stack>
-      <Box>
       <div className="video">
       <video
         className="video__player"
         onClick={onVideoPress}
         ref={videoRef}
         loop
+        controls
+        controlsList="nodownload"
         src={videoDetails?.awspath}
       ></video>
       {!isPlaying && (
@@ -48,7 +50,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle }) => {
           }}
           onClick={onVideoPress}
         >
-          <PlayArrow sx={{ height: '100px', width: '100px', opacity: '0.5' }} />
+          {/* <PlayArrow sx={{ height: '100px', width: '100px', opacity: '0.5' }} /> */}
         </Box>
       )}
       {isPlaying && (
@@ -70,11 +72,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle }) => {
         </Box>
       )}
     </div>
-      </Box>
-      <Box>
-      <Footer videoDetails={videoDetails} />
-      <Sidebar />
-      </Box>
+    <Footer videoDetails={videoDetails} onSendFormClick= {onSendFormClick} />
     </Stack>
 
     
