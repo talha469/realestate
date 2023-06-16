@@ -10,6 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 
 const Footer = ({ videoDetails, onSendFormClick }) => {
+
+  const handleSendFormClick = () => {
+    onSendFormClick(videoDetails); // Pass videoDetails to the parent component
+  };
+
   return (
     <Stack direction = 'row' sx={{ position: 'relative', bottom: '14vh', color: 'white', alignItems: 'center', justifyContent: 'center' }}>
         <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'space-around' }}>
@@ -37,7 +42,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
         </Stack>
 
       <Stack sx={{marginLeft:'16vh', marginRight:'5vh'}}>
-      <IconButton onClick={onSendFormClick}>
+      <IconButton onClick={handleSendFormClick}>
         <SendIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingRight: 2, transform:'rotate(-45deg)' }} />
       </IconButton>
       </Stack>

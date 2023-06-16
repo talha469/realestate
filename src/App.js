@@ -10,6 +10,7 @@ function App() {
   const [videosDetails, setVideosDetails] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
+  const [selectedVideoData, setSelectedVideoData] = useState('');
 
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
@@ -86,8 +87,11 @@ function App() {
     setIsFormOpen(!isFormOpen);
   };
 
-  const hanldeSendFormClick = () => {
+  const hanldeSendFormClick = (data) => {
+
     setIsSendFormOpen(true);
+    setSelectedVideoData(data);
+    console.log(selectedVideoData)
   };
 
   return (
@@ -110,7 +114,7 @@ function App() {
       )}
       {isSendFormOpen && (
         <div className="app__fullscreen">
-          <SendForm  onClose={handleIsSendFormOpen} onSubmit={handleSendFormData}/>
+          <SendForm  onClose={handleIsSendFormOpen} onSubmit={handleSendFormData} videoData={selectedVideoData}/>
         </div>
       )}
     </div>
