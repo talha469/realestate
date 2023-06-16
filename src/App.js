@@ -23,7 +23,17 @@ function App() {
   };
 
   const handleSendFormData = (formData) => {
-    debugger
+    const url = 'https://localhost:7027/fetchs3BucketData';
+
+    axios
+      .post(url, formData)
+      .then((result) => {
+        setIsSendFormOpen(false);       
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle the error or log it to understand the issue
+      });
   }
 
   const getFilteredVideos = (requestData) => {
