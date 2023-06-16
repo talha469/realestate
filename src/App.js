@@ -23,12 +23,33 @@ function App() {
   };
 
   const handleSendFormData = (formData) => {
-    const url = 'https://localhost:7027/fetchs3BucketData';
+    
+    const url = 'https://localhost:7027/ContactForm';
+
+    const data = {
+      "Name":formData.name,
+      "Email":formData.email,
+      "Message":formData.message,
+      "VideoID":selectedVideoData.videoID,
+      "AWSPath":selectedVideoData.awspath,
+      "DealType":selectedVideoData.dealType,
+      "Price":parseInt(selectedVideoData.price),
+      "Bedrooms":parseInt(selectedVideoData.bedrooms),
+      "Bathrooms":parseInt(selectedVideoData.bathrooms),
+      "Zip": selectedVideoData.zip.toString(),
+      "City":selectedVideoData.city,
+      "GoogleMapAddress":selectedVideoData.googleMapAddress,
+      "IsPlaying":selectedVideoData.isPlaying
+    }
+
+    setTimeout(() => {
+      setIsSendFormOpen(false);
+    }, 3500);
 
     axios
-      .post(url, formData)
-      .then((result) => {
-        setIsSendFormOpen(false);       
+      .post(url, data)
+      .then((result) => {  
+
       })
       .catch((error) => {
         console.log(error);
@@ -50,7 +71,6 @@ function App() {
     axios
       .post(url, data)
       .then((result) => {
-        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
@@ -67,7 +87,6 @@ function App() {
     axios
       .get('http://realestatedbaws-001-site1.gtempurl.com/fetchs3BucketData')
       .then((result) => {
-        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
@@ -101,7 +120,6 @@ function App() {
 
     setIsSendFormOpen(true);
     setSelectedVideoData(data);
-    console.log(selectedVideoData)
   };
 
   return (
