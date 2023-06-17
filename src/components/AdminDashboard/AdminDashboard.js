@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import Messages from './Messages'
+import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import {
   Button,
@@ -29,14 +32,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 
-const AdminDashboard = () => {
+const UploadVideoForm = ({ handleSidebarClose }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [dealType, setDealType] = useState('Rent');
   const [price, setPrice] = useState('');
   const [bedrooms, setBedrooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
   const [city, setCity] = useState('');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleVideoUpload = async (event) => {
     const file = event.target.files[0];
@@ -61,6 +63,7 @@ const AdminDashboard = () => {
     axios
       .post('https://localhost:7027/AdminDashboard', uploadVideoData)
       .then((response) => {
+        toast.success('Video uploaded successfully');
         console.log('Video data sent successfully:', response.data);
         // Perform any desired actions or handle the response from the backend
       })
@@ -91,12 +94,129 @@ const AdminDashboard = () => {
     }
   };
 
+  return (
+    <Container maxWidth="sm">
+      <FormControl fullWidth margin="normal">
+        <input
+          id="video-upload"
+          type="file"
+          accept="video/*"
+          style={{ display: 'none' }}
+          onChange={handleVideoUpload}
+        />
+        <label htmlFor="video-upload">
+          <Button variant="contained" component="span" startIcon={<CloudUploadIcon />}>
+            Upload Video
+          </Button>
+        </label>
+        {selectedVideo && (
+          <TextField
+            label="Selected Video"
+            value={selectedVideo.name}
+            InputProps={{
+              readOnly: true,
+            }}
+            fullWidth
+            margin="normal"
+          />
+        )}
+      </FormControl>
+      <FormControl component="fieldset" fullWidth margin="normal">
+        <FormLabel component="legend">Deal Type</FormLabel>
+        <RadioGroup
+          row
+          aria-label="deal-type"
+          name="deal-type"
+          value={dealType}
+          onChange={(e) => setDealType(e.target.value)}
+        >
+          <FormControlLabel value="Rent" control={<Radio />} label="Rent" />
+          <FormControlLabel value="Buy" control={<Radio />} label="Buy" />
+        </RadioGroup>
+      </FormControl>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          label="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          InputProps={{
+            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+          }}
+        />
+      </FormControl>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="bedrooms-label">Bedrooms</InputLabel>
+            <Select
+              labelId="bedrooms-label"
+              value={bedrooms}
+              onChange={(e) => setBedrooms(e.target.value)}
+            >
+              <MenuItem value="">Select</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5+">5+</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="bathrooms-label">Bathrooms</InputLabel>
+            <Select
+              labelId="bathrooms-label"
+              value={bathrooms}
+              onChange={(e) => setBathrooms(e.target.value)}
+            >
+              <MenuItem value="">Select</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5+">5+</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <FormControl fullWidth margin="normal">
+        <TextField label="City" value={city} onChange={(e) => setCity(e.target.value)} />
+      </FormControl>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+        fullWidth
+        margin="normal"
+        style={{ marginTop: '2rem' }}
+      >
+        Submit
+      </Button>
+    </Container>
+  );
+};
+
+const AdminDashboard = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [currentComponent, setCurrentComponent] = useState('upload'); // 'upload' or 'messages'
+
   const handleSidebarOpen = () => {
     setIsSidebarOpen(true);
   };
 
   const handleSidebarClose = () => {
     setIsSidebarOpen(false);
+  };
+
+  const handleOpenUploadForm = () => {
+    setCurrentComponent('upload');
+    handleSidebarClose();
+  };
+
+  const handleOpenMessages = () => {
+    setCurrentComponent('messages');
+    handleSidebarClose();
   };
 
   return (
@@ -111,15 +231,16 @@ const AdminDashboard = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+      <ToastContainer />
       <Drawer anchor="left" open={isSidebarOpen} onClose={handleSidebarClose}>
         <List>
-          <ListItem button>
+          <ListItem button onClick={handleOpenUploadForm}>
             <ListItemIcon>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText primary="Upload Video" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={handleOpenMessages}>
             <ListItemIcon>
               <MessageIcon />
             </ListItemIcon>
@@ -127,106 +248,11 @@ const AdminDashboard = () => {
           </ListItem>
         </List>
       </Drawer>
-      <Container maxWidth="sm">
-        <FormControl fullWidth margin="normal">
-          <input
-            id="video-upload"
-            type="file"
-            accept="video/*"
-            style={{ display: 'none' }}
-            onChange={handleVideoUpload}
-          />
-          <label htmlFor="video-upload">
-            <Button variant="contained" component="span" startIcon={<CloudUploadIcon />}>
-              Upload Video
-            </Button>
-          </label>
-          {selectedVideo && (
-            <TextField
-              label="Selected Video"
-              value={selectedVideo.name}
-              InputProps={{
-                readOnly: true,
-              }}
-              fullWidth
-              margin="normal"
-            />
-          )}
-        </FormControl>
-        <FormControl component="fieldset" fullWidth margin="normal">
-          <FormLabel component="legend">Deal Type</FormLabel>
-          <RadioGroup
-            row
-            aria-label="deal-type"
-            name="deal-type"
-            value={dealType}
-            onChange={(e) => setDealType(e.target.value)}
-          >
-            <FormControlLabel value="Rent" control={<Radio />} label="Rent" />
-            <FormControlLabel value="Buy" control={<Radio />} label="Buy" />
-          </RadioGroup>
-        </FormControl>
-        <FormControl fullWidth margin="normal">
-          <TextField
-            label="Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            InputProps={{
-              startAdornment: <InputAdornment position="start">$</InputAdornment>,
-            }}
-          />
-        </FormControl>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="bedrooms-label">Bedrooms</InputLabel>
-              <Select
-                labelId="bedrooms-label"
-                value={bedrooms}
-                onChange={(e) => setBedrooms(e.target.value)}
-              >
-                <MenuItem value="">Select</MenuItem>
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3</MenuItem>
-                <MenuItem value="4">4</MenuItem>
-                <MenuItem value="5+">5+</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={6}>
-            <FormControl fullWidth margin="normal">
-              <InputLabel id="bathrooms-label">Bathrooms</InputLabel>
-              <Select
-                labelId="bathrooms-label"
-                value={bathrooms}
-                onChange={(e) => setBathrooms(e.target.value)}
-              >
-                <MenuItem value="">Select</MenuItem>
-                <MenuItem value="1">1</MenuItem>
-                <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3</MenuItem>
-                <MenuItem value="4">4</MenuItem>
-                <MenuItem value="5+">5+</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-        <FormControl fullWidth margin="normal">
-          <TextField label="City" value={city} onChange={(e) => setCity(e.target.value)} />
-        </FormControl>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-          fullWidth
-          margin="normal"
-          style={{ marginTop: '2rem' }}
-          
-        >
-          Submit
-        </Button>
-      </Container>
+      {currentComponent === 'upload' ? (
+        <UploadVideoForm handleSidebarClose={handleSidebarClose} />
+      ) : (
+        <Messages />
+      )}
     </div>
   );
 };

@@ -129,12 +129,12 @@ const FormComponent = ({ onSubmit }) => {
             value={priceRange}
             onChange={handlePriceRangeChange}
             min={0}
-            max={10000}
+            max={20000}
             step={100}
             valueLabelDisplay="auto"
             marks={[
               { value: 0, label: "$0" },
-              { value: 10000, label: "$10000" },
+              { value: 20000, label: "$20000" },
             ]}
           />
         </Box>
