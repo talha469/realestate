@@ -20,9 +20,8 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick  }) => 
   const onVideoPress = () => {
     onVideoToggle(videoDetails.videoID);
   };
-
   return (
-
+    
     <Stack>
       <div className="video">
       <video
@@ -32,7 +31,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick  }) => 
         loop
         controls
         controlsList="nodownload"
-        src={videoDetails?.awspath}
+        src={videoDetails?.awsPathKey}
       ></video>
       {!isPlaying && (
         <Box

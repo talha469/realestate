@@ -32,7 +32,7 @@ function App() {
       Email: formData.email,
       Message: formData.message,
       VideoID: selectedVideoData.videoID,
-      AWSPath: selectedVideoData.awspath,
+      AWSPathKey: selectedVideoData.awsPathKey,
       DealType: selectedVideoData.dealType,
       Price: parseInt(selectedVideoData.price),
       Bedrooms: parseInt(selectedVideoData.bedrooms),
@@ -96,8 +96,9 @@ function App() {
 
   const getData = () => {
     axios
-      .get("http://realestatedbaws-001-site1.gtempurl.com/fetchs3BucketData")
+      .get("https://localhost:7027/fetchs3BucketData")
       .then((result) => {
+        console.log(result)
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,

@@ -55,7 +55,7 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
 
   const {
     videoID,
-    awspath,
+    awsPathkey,
     dealType,
     price,
     bedrooms,

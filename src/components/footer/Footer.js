@@ -29,7 +29,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
             </Stack>
           </Stack>
 
-          <Stack direction="column" sx={{ flex: 1, marginLeft:'5vh' }}>
+          <Stack direction="column" sx={{ flex: 3, marginLeft:'5vh', marginRight:'30px' }}>
             <Stack direction="row" alignItems="center" spacing={1}>
               <LocationCity sx={{ color: 'white', fontSize:'16px' }} />
               <span> {videoDetails.city}</span>
