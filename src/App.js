@@ -14,6 +14,7 @@ function App() {
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
+  const [currentVideoID, setCurrentVideoID] = useState(null);
 
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
@@ -37,7 +38,7 @@ function App() {
       Price: parseInt(selectedVideoData.price),
       Bedrooms: parseInt(selectedVideoData.bedrooms),
       Bathrooms: parseInt(selectedVideoData.bathrooms),
-      Zip: selectedVideoData.zip.toString(),
+      Zip: selectedVideoData?.zip !== null ? selectedVideoData?.zip.toString() : null,
       City: selectedVideoData.city,
       GoogleMapAddress: selectedVideoData.googleMapAddress,
       IsPlaying: selectedVideoData.isPlaying,
@@ -53,18 +54,6 @@ function App() {
       .catch((error) => {
         console.log(error);
         // Handle the error or log it to understand the issue
-      });
-  };
-
-  const getContactData = () => {
-    axios
-      .get("https://localhost:7027/fetchs3BucketData")
-      .then((result) => {
-        sendContactData(result);
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -122,6 +111,13 @@ function App() {
       return { ...video, isPlaying: false };
     });
     setVideosDetails(updatedVideos);
+    setCurrentVideoID((prevVideoID) => {
+      if (prevVideoID === videoID) {
+        return null;
+      } else {
+        return videoID;
+      }
+    });
   };
 
   const handleFilterClick = () => {
