@@ -155,6 +155,12 @@ function App() {
       });
   }
 
+  const inputtrigger = (data) => {
+    if(data){
+      getData()
+    }
+  }
+
   return (
     <BrowserRouter>
       <div>
@@ -163,7 +169,7 @@ function App() {
             path="/"
             element={
               <div className="App">
-                <Header onFilterClick={handleFilterClick} sendSearchedText={HandleSearchedTextFilter}/>
+                <Header onFilterClick={handleFilterClick} sendSearchedText={HandleSearchedTextFilter} inputEmptyTrigger={inputtrigger}/>
                 <Routes>
                   <Route
                     path="/"
