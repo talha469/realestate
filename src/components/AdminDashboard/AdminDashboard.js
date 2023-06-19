@@ -60,9 +60,9 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
 
   const sendVideoData = (uploadVideoData) => {
     console.log(uploadVideoData);
-    // Send video data to your C# API
+    // Send video data to your C# API   
     axios
-      .post('http://visheshmanwani-001-site2.itempurl.com/AdminDashboard', uploadVideoData)
+      .post('https://visheshmanwani-001-site2.itempurl.com', uploadVideoData)
       .then((response) => {
         toast.success('Video uploaded successfully');
         console.log('Video data sent successfully:', response.data);

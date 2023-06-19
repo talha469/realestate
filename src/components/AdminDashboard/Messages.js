@@ -19,7 +19,7 @@ const Messages = () => {
   const fetchData = () => {
     setIsLoading(true);
     axios
-      .get('http://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
+      .get('https://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
       .then((response) => {
         setData(response.data);
         setIsLoading(false);
@@ -34,7 +34,7 @@ const Messages = () => {
   const handleDownload = () => {
     setIsLoading(true);
     axios
-      .get('http://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
+      .get('https://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
       .then((response) => {
         // Convert response data to Excel file and download
         downloadExcelFile(response.data);
