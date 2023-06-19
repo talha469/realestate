@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 
 
-function Searchbar() {
+const Searchbar = ({sendSearchedText}) => {
     const[searchTerm, setSearchItem]= useState('');
     //const navigate = useNavigate();
   
@@ -12,9 +12,7 @@ function Searchbar() {
       e.preventDefault(); // this doesnt allow to reload the page on form submit
   
       if(searchTerm){
-        //navigate(`/search/${searchTerm}`)
-  
-        setSearchItem('');
+        sendSearchedText(searchTerm);
       }
     }
     return (

@@ -129,6 +129,11 @@ function App() {
     setSelectedVideoData(data);
   };
 
+  const HandleSearchedTextFilter = (search) => {
+    debugger
+    console.log(search);
+  }
+
   return (
     <BrowserRouter>
       <div>
@@ -137,7 +142,7 @@ function App() {
             path="/"
             element={
               <div className="App">
-                <Header onFilterClick={handleFilterClick} />
+                <Header onFilterClick={handleFilterClick} sendSearchedText={HandleSearchedTextFilter}/>
                 <Routes>
                   <Route
                     path="/"

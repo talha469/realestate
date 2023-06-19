@@ -9,7 +9,7 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { colors } from '@mui/material';
 import FormComponent from './FormComponent';
 
-const Header = ({ onFilterClick }) => {
+const Header = ({ onFilterClick,sendSearchedText }) => {
   return (
     <Stack
       className='header'
@@ -25,7 +25,7 @@ const Header = ({ onFilterClick }) => {
       }}
     >
       <AppleIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingLeft: 2 }} />
-      <Searchbar />
+      <Searchbar sendSearchedText={sendSearchedText}/>
 
       <IconButton onClick={onFilterClick}>
         <FilterListIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingRight: 2 }} />
