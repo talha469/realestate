@@ -1,13 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stack, Box } from '@mui/material';
-import { PlayArrow, Pause } from '@mui/icons-material';
 import Footer from '../footer/Footer';
 import './Video.css';
-import SendForm from '../Contact/SendForm';
 
 const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
   const videoRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const options = {
@@ -40,12 +37,12 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
   }, []);
 
   useEffect(() => {
-    if (isPlaying && isVisible) {
+    if (isPlaying) {
       videoRef.current?.play();
-    } else if (!isPlaying && isVisible) {
+    } else if (!isPlaying) {
       videoRef.current?.pause();
     }
-  }, [isPlaying, isVisible]);
+  }, [isPlaying]);
 
   const onVideoPress = () => {
     onVideoToggle(videoDetails.videoID);
