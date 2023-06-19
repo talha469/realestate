@@ -123,7 +123,7 @@ const Messages = () => {
           )}
         </div>
       </Snackbar>
-      {data.length > 0 && (
+      {/* {data.length > 0 && (
         <TableContainer component={Paper} style={{ marginTop: '1rem' }}>
           <Table>
             <TableHead>
@@ -144,7 +144,7 @@ const Messages = () => {
             </TableBody>
           </Table>
         </TableContainer>
-      )}
+      )} */}
       <ToastContainer />
     </div>
   );
