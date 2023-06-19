@@ -22,7 +22,7 @@ const FormComponent = ({ onSubmit }) => {
   });
   const [priceRange, setPriceRange] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
-    return formData ? formData.priceRange : [0, 10000];
+    return formData ? formData.priceRange : [0, 20000];
   });
   const [bedrooms, setBedrooms] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
@@ -64,6 +64,19 @@ const FormComponent = ({ onSubmit }) => {
     },
     [rentOrBuy, priceRange, bedrooms, bathrooms, city] // Added dependencies
   );
+
+  // Clear cache on page reload
+  useEffect(() => {
+    const handleUnload = () => {
+      localStorage.removeItem("formData");
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
 
   const handleRentOrBuyChange = (event) => {
     setRentOrBuy(event.target.value);

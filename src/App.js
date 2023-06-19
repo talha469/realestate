@@ -21,6 +21,14 @@ function App() {
     setIsFormOpen(false);
   };
 
+  useEffect(() => {
+    // Clear application cache on web reload
+    window.onbeforeunload = () => {
+      localStorage.clear();
+      sessionStorage.clear();
+    };
+  }, []);
+
   const handleIsSendFormOpen = () => {
     setIsSendFormOpen(false);
   };
