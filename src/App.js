@@ -130,8 +130,21 @@ function App() {
   };
 
   const HandleSearchedTextFilter = (search) => {
-    debugger
-    console.log(search);
+    const url = `https://localhost:7027/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(search)}`;
+    axios
+      .post(url, search)
+      .then((result) => {
+        console.log(result)
+        const updatedVideos = result.data.map((video) => ({
+          ...video,
+          isPlaying: false,
+        }));
+        setVideosDetails(updatedVideos);
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle the error or log it to understand the issue
+      });
   }
 
   return (

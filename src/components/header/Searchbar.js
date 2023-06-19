@@ -30,7 +30,7 @@ const Searchbar = ({sendSearchedText}) => {
       >
           <input
           className='search-bar'
-          placeholder='search...'
+          placeholder='3 bedroom, 2 bathroom..'
           value={searchTerm}
           onChange={(e) => {setSearchItem(e.target.value)}}
           style={{
