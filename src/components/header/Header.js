@@ -3,7 +3,7 @@ import { Box } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
 import AppleIcon from '@mui/icons-material/Apple';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import Searchbar from './Searchbar';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { colors } from '@mui/material';

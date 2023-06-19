@@ -6,12 +6,13 @@ import HomeIcon from '@mui/icons-material/Home';
 import { Stack, Box } from '@mui/material';
 import { Typography, Card, CardContent, CardMedia } from '@mui/material' 
 import { Bathtub, Hotel, LocationCity, MonetizationOn } from '@mui/icons-material';
-import IconButton from '@material-ui/core/IconButton';
+import IconButton from '@mui/material/IconButton';
 import SendIcon from '@mui/icons-material/Send';
 
 const Footer = ({ videoDetails, onSendFormClick }) => {
 
   const handleSendFormClick = () => {
+    debugger
     onSendFormClick(videoDetails); // Pass videoDetails to the parent component
   };
 

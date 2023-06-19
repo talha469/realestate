@@ -26,7 +26,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
+} from '@mui/material';
+
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -61,7 +62,7 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
     console.log(uploadVideoData);
     // Send video data to your C# API
     axios
-      .post('https://localhost:7027/AdminDashboard', uploadVideoData)
+      .post('http://visheshmanwani-001-site2.itempurl.com/AdminDashboard', uploadVideoData)
       .then((response) => {
         toast.success('Video uploaded successfully');
         console.log('Video data sent successfully:', response.data);

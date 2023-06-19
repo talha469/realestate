@@ -1,37 +1,40 @@
-import React, { useState } from 'react';
-import { Button, CircularProgress, makeStyles, Snackbar } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Button, CircularProgress, Snackbar, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { CloudDownload, CheckCircle, Error as ErrorIcon } from '@mui/icons-material';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '64px', // Adjust this value to match the height of your top bar
-      },
-  downloadButton: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
-    },
-  },
-}));
-
 const Messages = () => {
-  const classes = useStyles();
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    setIsLoading(true);
+    axios
+      .get('http://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
+      .then((response) => {
+        setData(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+        setIsError(true);
+      });
+  };
 
   const handleDownload = () => {
     setIsLoading(true);
     axios
-      .get('https://localhost:7027/ContactForm') // Replace with your API endpoint
+      .get('http://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
       .then((response) => {
         // Convert response data to Excel file and download
         downloadExcelFile(response.data);
@@ -82,10 +85,16 @@ const Messages = () => {
   };
 
   return (
-    <div className={classes.root}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <h1>Messages</h1>
       <Button
-        className={classes.downloadButton}
+        style={{
+          backgroundColor: '#3f51b5',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#1a237e',
+          },
+        }}
         variant="contained"
         startIcon={<CloudDownload />}
         onClick={handleDownload}
@@ -114,6 +123,28 @@ const Messages = () => {
           )}
         </div>
       </Snackbar>
+      {data.length > 0 && (
+        <TableContainer component={Paper} style={{ marginTop: '1rem' }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Email</TableCell>
+                <TableCell>Message</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.email}</TableCell>
+                  <TableCell>{row.message}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
       <ToastContainer />
     </div>
   );
