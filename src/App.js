@@ -10,7 +10,7 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(true);
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
@@ -133,39 +133,40 @@ function App() {
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path="/" element={<div className="App">
-            <Header onFilterClick={handleFilterClick} />
-            <Routes>
-              <Route path="/" element={isFormOpen ? (
-                <FormComponent onSubmit={handleFormSubmit} />
-              ) : (
-                <div className="app__videos">
-                  {videosDetails.map((item) => (
-                    <Video
-                      key={item?.videoID}
-                      videoDetails={item}
-                      isPlaying={item.isPlaying}
-                      onVideoToggle={handleVideoToggle}
-                      onSendFormClick={hanldeSendFormClick}
-                    />
-                  ))}
-                </div>
-              )} />
-            </Routes>
-          </div>} />
+          <Route
+            path="/"
+            element={
+              <div className="App">
+                <Header onFilterClick={handleFilterClick} />
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      isFormOpen ? (
+                        <FormComponent onSubmit={handleFormSubmit} />
+                      ) : (
+                        <div className="app__videos">
+                          {videosDetails.map((item) => (
+                            <Video
+                              key={item?.videoID}
+                              videoDetails={item}
+                              isPlaying={item.isPlaying}
+                              onVideoToggle={handleVideoToggle}
+                              onSendFormClick={hanldeSendFormClick}
+                            />
+                          ))}
+                        </div>
+                      )
+                    }
+                  />
+                </Routes>
+              </div>
+            }
+          />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
 
-        
-        {isSendFormOpen && (
-          <div className="app__fullscreen">
-            <SendForm
-              onClose={handleIsSendFormOpen}
-              onSubmit={handleSendFormData}
-              videoData={selectedVideoData}
-            />
-          </div>
-        )}
+        {/* Rest of the code... */}
       </div>
     </BrowserRouter>
   );

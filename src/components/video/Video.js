@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Stack, Box } from '@mui/material';
 import { PlayArrow, Pause } from '@mui/icons-material';
 import Footer from '../footer/Footer';
-import Sidebar from '../sidebar/Sidebar';
 import './Video.css';
 import SendForm from '../Contact/SendForm';
 
@@ -16,36 +15,35 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
       rootMargin: '0px',
       threshold: 0.5, // Adjust this value as needed
     };
-  
+
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          videoRef.current.play();
+          videoRef.current?.play();
         } else {
-          videoRef.current.pause();
+          videoRef.current?.pause();
         }
       });
     };
-  
+
     const observer = new IntersectionObserver(handleIntersection, options);
-  
+
     if (videoRef.current) {
       observer.observe(videoRef.current);
     }
-  
+
     return () => {
       if (videoRef.current) {
         observer.unobserve(videoRef.current);
       }
     };
   }, []);
-  
 
   useEffect(() => {
     if (isPlaying && isVisible) {
-      videoRef.current.play();
+      videoRef.current?.play();
     } else if (!isPlaying && isVisible) {
-      videoRef.current.pause();
+      videoRef.current?.pause();
     }
   }, [isPlaying, isVisible]);
 
@@ -99,7 +97,9 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
               zIndex: 1,
             }}
             onClick={onVideoPress}
-          ></Box>
+          >
+            {/* <Pause sx={{ height: '100px', width: '100px', opacity: '0.5' }} /> */}
+          </Box>
         )}
       </div>
       <Footer videoDetails={videoDetails} onSendFormClick={onSendFormClick} />
