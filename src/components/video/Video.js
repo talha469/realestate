@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stack, Box } from '@mui/material';
 import Footer from '../footer/Footer';
+import { Typography, Button } from "@mui/material";
 import './Video.css';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isLastVideo  }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -51,6 +52,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
   return (
     <Stack sx={{width:'100%'}}>
       <div className="video">
+
         <video
           className="video__player"
           onClick={onVideoPress}
@@ -100,6 +102,8 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
         )}
       </div>
       <Footer videoDetails={videoDetails} onSendFormClick={onSendFormClick} />
+      {/* Thank you message and contact button for the last video */}
+      
     </Stack>
   );
 };
