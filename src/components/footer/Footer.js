@@ -65,7 +65,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
         </Box>
       </Stack>
 
-      <Box sx={{ paddingLeft: "2vh", marginRight: "4vh" }}>
+      <Box sx={{ paddingLeft: "5px", marginRight: "15px" }}>
         <IconButton onClick={handleSendFormClick}>
           <SendIcon
             sx={{

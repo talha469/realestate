@@ -15,7 +15,7 @@ const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger }) => {
       className='header'
       direction="row"
       alignItems="center"
-      p={2}
+      p={0}
       sx={{
         position: "sticky",
         background: "#000",
