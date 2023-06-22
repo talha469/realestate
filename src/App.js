@@ -15,6 +15,7 @@ function App() {
   const [videosDetails, setVideosDetails] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(true);
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
+  const [isVideoInformation, setIsVideoInformation] = useState(false);
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
   const [currentVideoID, setCurrentVideoID] = useState(null);
@@ -27,6 +28,7 @@ function App() {
 
   const handleContactAdmin = () => {
     setIsSendFormOpen(true);
+    setIsVideoInformation(false);
   };
 
   useEffect(() => {
@@ -218,7 +220,7 @@ function App() {
                               />
                             ))
                           ) : (
-                            <NoPropertyAvailable/>
+                            <NoPropertyAvailable />
                           )}
                           {videosDetails && videosDetails.length > 0 && (
                             <LastVideoMessage
@@ -242,6 +244,7 @@ function App() {
               onClose={handleIsSendFormOpen}
               onSubmit={handleSendFormData}
               videoData={selectedVideoData}
+              isVideoInformation = {isVideoInformation}
             />
           </div>
         )}

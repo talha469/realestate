@@ -21,7 +21,7 @@ const StyledDialogTitle = styled(DialogTitle)`
 `;
 
 
-const SendForm = ({ onClose, onSubmit, videoData }) => {
+const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -121,8 +121,8 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
                 fullWidth
                 margin="normal"
               />
-
-              <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
+              
+              {isVideoInformation ? (  <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
                 <p style={{ marginRight: "1rem" }}>
                   <strong>Bathrooms:</strong> {bathrooms}
                 </p>
@@ -141,7 +141,9 @@ const SendForm = ({ onClose, onSubmit, videoData }) => {
                 <p style={{ marginRight: "1rem" }}>
                   <strong>Google Location:</strong> {googleMapAddress}
                 </p>
-              </Typography>
+              </Typography>) : null}
+
+            
 
               <DialogActions>
                 <Button variant="contained" color="primary" type="submit">
