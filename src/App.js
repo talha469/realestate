@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import LoadingScreen from "./components/UXScreen/LoadingScreen";
 import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
+import NoPropertyAvailable from "./components/UXScreen/NoPropertyAvailable";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
@@ -25,8 +26,8 @@ function App() {
   };
 
   const handleContactAdmin = () => {
-    setIsSendFormOpen(true)
-  }
+    setIsSendFormOpen(true);
+  };
 
   useEffect(() => {
     // Clear application cache on web reload
@@ -77,7 +78,7 @@ function App() {
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    debugger
+    debugger;
     const url =
       "https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData";
     const data = {
@@ -106,7 +107,7 @@ function App() {
   };
 
   const getData = () => {
-    setIsScreenLoading(true)
+    setIsScreenLoading(true);
     axios
       .get("https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData")
       .then((result) => {
@@ -155,7 +156,7 @@ function App() {
   };
 
   const HandleSearchedTextFilter = (search) => {
-    setIsScreenLoading(true)
+    setIsScreenLoading(true);
     const url = `https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
       search
     )}`;
@@ -168,7 +169,7 @@ function App() {
           isPlaying: false,
         }));
         setVideosDetails(updatedVideos);
-        setIsScreenLoading(false)
+        setIsScreenLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -190,7 +191,6 @@ function App() {
             path="/"
             element={
               <div className="App">
-
                 <Header
                   onFilterClick={handleFilterClick}
                   sendSearchedText={HandleSearchedTextFilter}
@@ -202,23 +202,29 @@ function App() {
                     element={
                       isFormOpen ? (
                         <FormComponent onSubmit={handleFormSubmit} />
-                      ) :                 
-                
-                      isScreenLoading ? (
-                          <LoadingScreen/>
-                      ): (
+                      ) : isScreenLoading ? (
+                        <LoadingScreen />
+                      ) : (
                         <div className="app__videos">
-                          {videosDetails.map((item, index) => (
-                            <Video
-                              key={item?.videoID}
-                              videoDetails={item}
-                              isPlaying={item.isPlaying}
-                              onVideoToggle={handleVideoToggle}
-                              onSendFormClick={hanldeSendFormClick}
-                              isLastVideo={index === videosDetails.length - 1}
+                          {videosDetails && videosDetails.length > 0 ? (
+                            videosDetails.map((item, index) => (
+                              <Video
+                                key={item?.videoID}
+                                videoDetails={item}
+                                isPlaying={item.isPlaying}
+                                onVideoToggle={handleVideoToggle}
+                                onSendFormClick={hanldeSendFormClick}
+                                isLastVideo={index === videosDetails.length - 1}
+                              />
+                            ))
+                          ) : (
+                            <NoPropertyAvailable/>
+                          )}
+                          {videosDetails && videosDetails.length > 0 && (
+                            <LastVideoMessage
+                              onContactAdmin={handleContactAdmin}
                             />
-                          ))}
-                          <LastVideoMessage onContactAdmin={handleContactAdmin}/>
+                          )}
                         </div>
                       )
                     }

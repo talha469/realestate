@@ -38,7 +38,7 @@ const LastVideoMessage = ({onContactAdmin}) => {
           variant="contained"
           color="primary"
           onClick={handleContactClick}
-          startIcon={<Send />}
+          startIcon={<Send sx={{ transform: 'rotate(-45deg)' }}/>}
           sx={{ width: '150px', alignContent:'center' }}
         >
           Contact
