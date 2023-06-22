@@ -18,10 +18,10 @@ const NoPropertyAvailable = () => {
       }}
     >
       <Typography variant="h4" sx={{ color: "white", marginBottom: "20px" }}>
-        No property available
+        No listings found
       </Typography>
       <Typography variant="h5" sx={{ color: "white", marginBottom: "20px" }} gutterBottom>
-          Try with different filters
+          Try searching with different filters
         </Typography>
       <img src={Image} alt="No property available" style={{ width: "100%" }} />
     </Box>
