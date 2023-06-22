@@ -29,7 +29,7 @@ const LastVideoMessage = ({onContactAdmin}) => {
         }}
         spacing={2}
       >
-        <img src={Image} alt="No property available" style={{ width: "100%" }} />
+        <img src={Image} alt="No property available" style={{ width: "40vh" }} />
         <Typography variant="h4" gutterBottom>
           Thank you for watching!
         </Typography>
