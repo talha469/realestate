@@ -49,7 +49,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
   };
 
   return (
-    <Stack>
+    <Stack sx={{width:'100%'}}>
       <div className="video">
         <video
           className="video__player"

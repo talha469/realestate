@@ -7,6 +7,7 @@ import FormComponent from "./components/header/FormComponent";
 import SendForm from "./components/Contact/SendForm";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
+import LoadingScreen from "./components/UXScreen/LoadingScreen";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
@@ -15,6 +16,7 @@ function App() {
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
   const [currentVideoID, setCurrentVideoID] = useState(null);
+  const [isScreenLoading, setIsScreenLoading] = useState(false);
 
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
@@ -46,7 +48,10 @@ function App() {
       Price: parseInt(selectedVideoData.price),
       Bedrooms: parseInt(selectedVideoData.bedrooms),
       Bathrooms: parseInt(selectedVideoData.bathrooms),
-      Zip: selectedVideoData?.zip !== null ? selectedVideoData?.zip.toString() : null,
+      Zip:
+        selectedVideoData?.zip !== null
+          ? selectedVideoData?.zip.toString()
+          : null,
       City: selectedVideoData.city,
       GoogleMapAddress: selectedVideoData.googleMapAddress,
       IsPlaying: selectedVideoData.isPlaying,
@@ -66,7 +71,10 @@ function App() {
   };
 
   const getFilteredVideos = (requestData) => {
-    const url = "https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData";
+    setIsScreenLoading(true);
+    debugger
+    const url =
+      "https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData";
     const data = {
       Bedrooms: parseInt(requestData.bedrooms),
       Bathrooms: parseInt(requestData.bathrooms),
@@ -84,6 +92,7 @@ function App() {
           isPlaying: false,
         }));
         setVideosDetails(updatedVideos);
+        setIsScreenLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -92,16 +101,18 @@ function App() {
   };
 
   const getData = () => {
+    setIsScreenLoading(true)
     axios
       .get("https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData")
       .then((result) => {
-        debugger
-        console.log(result)
+        debugger;
+        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
         }));
         setVideosDetails(updatedVideos);
+        setIsScreenLoading(false);
       })
       .catch((error) => {
         console.log(error);
@@ -139,28 +150,32 @@ function App() {
   };
 
   const HandleSearchedTextFilter = (search) => {
-    const url = `https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(search)}`;
+    setIsScreenLoading(true)
+    const url = `https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
+      search
+    )}`;
     axios
       .post(url, search)
       .then((result) => {
-        console.log(result)
+        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
         }));
         setVideosDetails(updatedVideos);
+        setIsScreenLoading(false)
       })
       .catch((error) => {
         console.log(error);
         // Handle the error or log it to understand the issue
       });
-  }
+  };
 
   const inputtrigger = (data) => {
-    if(data){
-      getData()
+    if (data) {
+      getData();
     }
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -170,14 +185,23 @@ function App() {
             path="/"
             element={
               <div className="App">
-                <Header onFilterClick={handleFilterClick} sendSearchedText={HandleSearchedTextFilter} inputEmptyTrigger={inputtrigger}/>
+
+                <Header
+                  onFilterClick={handleFilterClick}
+                  sendSearchedText={HandleSearchedTextFilter}
+                  inputEmptyTrigger={inputtrigger}
+                />
                 <Routes>
                   <Route
                     path="/"
                     element={
                       isFormOpen ? (
                         <FormComponent onSubmit={handleFormSubmit} />
-                      ) : (
+                      ) :                 
+                
+                      isScreenLoading ? (
+                          <LoadingScreen/>
+                      ): (
                         <div className="app__videos">
                           {videosDetails.map((item) => (
                             <Video

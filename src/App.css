@@ -1,10 +1,11 @@
 html{
     scroll-snap-type: y mandatory;
-    height: 88vh;
+    height: 92vh;
 }
 
 .App{
     height: 100%;
+    width: 100%;
     background-color: white;
     display: grid;
     place-items: center
@@ -12,7 +13,7 @@ html{
 
 .app__videos{
     position: relative;
-    height: 88vh;
+    height: 92vh;
     overflow: scroll;
     border-radius: 0px;
     width: 100%;
