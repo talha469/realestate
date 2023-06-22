@@ -1,53 +1,85 @@
-import React from 'react';
-import './Footer.css';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import LocationCityIcon from '@mui/icons-material/LocationCity';
-import HomeIcon from '@mui/icons-material/Home';
-import { Stack, Box } from '@mui/material';
-import { Typography, Card, CardContent, CardMedia } from '@mui/material' 
-import { Bathtub, Hotel, LocationCity, MonetizationOn } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
+import React from "react";
+import "./Footer.css";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import HomeIcon from "@mui/icons-material/Home";
+import { Stack, Box } from "@mui/material";
+import { Typography, Card, CardContent, CardMedia } from "@mui/material";
+import {
+  Bathtub,
+  Hotel,
+  LocationCity,
+  MonetizationOn,
+} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 
 const Footer = ({ videoDetails, onSendFormClick }) => {
-
   const handleSendFormClick = () => {
-    debugger
+    debugger;
     onSendFormClick(videoDetails); // Pass videoDetails to the parent component
   };
 
   return (
-    <Stack direction = 'row' sx={{ position: 'relative', bottom: '14vh', color: 'white', alignItems: 'center', justifyContent: 'center' }}>
-        <Stack direction="row" sx={{ justifyContent: 'center', alignItems: 'space-around' }}>
-          <Stack direction="column" sx={{ flex: 1, marginLeft:'8vh' }}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Bathtub sx={{ color: 'white', fontSize:'16px' }} />
-              <span> {videoDetails.bathrooms}</span>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Hotel sx={{ color: 'white', fontSize:'16px' }} />
-              <span> {videoDetails.bedrooms}</span>
-            </Stack>
-          </Stack>
+    <Stack
+      direction="row"
+      sx={{
+        position: "relative",
+        bottom: "15vh",
+        color: "white",
+        alignItems: "space-around",
+        justifyContent: "center",
+      }}
+    >
+      <Stack direction="column">
+        <Box
+          sx={{
+            justifyContent: "center",
+            flexWrap: "nowrap",
+            marginLeft: "5vh",
+          }}
+        >
+          {/* <Bathtub sx={{ color: 'white', fontSize:'16px' }} /> */}
+          Bathrooms :
+          <span style={{ marginRight: "15px" }}> {videoDetails.bathrooms}</span>
+          {/* <Hotel sx={{ color: 'white', fontSize:'16px' }} /> */}
+          Bedrooms :
+          <span style={{ marginRight: "15px" }}> {videoDetails.bedrooms}</span>
+        </Box>
 
-          <Stack direction="column" sx={{ flex: 3, marginLeft:'5vh', marginRight:'30px' }}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <LocationCity sx={{ color: 'white', fontSize:'16px' }} />
-              <span> {videoDetails.city}</span>
-            </Stack>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <MonetizationOn sx={{ color: 'white', fontSize:'16px' }} />
-              <span> {videoDetails.dealType}</span>
-            </Stack>
-          </Stack>
-        </Stack>
-
-      <Stack sx={{marginLeft:'16vh', marginRight:'5vh'}}>
-      <IconButton onClick={handleSendFormClick}>
-        <SendIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingRight: 2, transform:'rotate(-45deg)' }} />
-      </IconButton>
+        <Box
+          sx={{
+            alignItems: "flex-start",
+            alignContent: "flex-start",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            marginLeft: "5vh",
+          }}
+        >
+          {/* <MonetizationOn sx={{ color: 'white', fontSize:'16px' }} /> */}
+          Deal :
+          <span style={{ marginRight: "15px" }}> {videoDetails.dealType}</span>
+          {/* <LocationCity sx={{ color: 'white', fontSize:'16px' }} /> */}
+          City :
+          <span style={{ marginRight: "15px" }}> {videoDetails.city}</span>
+        </Box>
       </Stack>
 
+      <Box sx={{ paddingLeft: "2vh", marginRight: "4vh" }}>
+        <IconButton onClick={handleSendFormClick}>
+          <SendIcon
+            sx={{
+              height: 45,
+              marginBottom:'25vh',
+              color: "white",
+              cursor: "pointer",
+              position:'relative',
+              paddingRight: 2,
+              transform: "rotate(-45deg)",
+            }}
+          />
+        </IconButton>
+      </Box>
     </Stack>
   );
 };

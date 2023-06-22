@@ -154,7 +154,7 @@ const FormComponent = ({ onSubmit }) => {
 
         <Box mt={3}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
-            <LocalHotelIcon />
+            Bedrooms
           </Typography>
           <FormControl sx={{ minWidth: "120px" }}>
             <Select
@@ -175,7 +175,7 @@ const FormComponent = ({ onSubmit }) => {
 
         <Box mt={3}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
-            <BathtubIcon />
+            Bathrooms
           </Typography>
           <FormControl sx={{ minWidth: "120px" }}>
             <Select
