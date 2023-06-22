@@ -8,6 +8,7 @@ import SendForm from "./components/Contact/SendForm";
 import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import LoadingScreen from "./components/UXScreen/LoadingScreen";
+import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
@@ -22,6 +23,10 @@ function App() {
     getFilteredVideos(data);
     setIsFormOpen(false);
   };
+
+  const handleContactAdmin = () => {
+    setIsSendFormOpen(true)
+  }
 
   useEffect(() => {
     // Clear application cache on web reload
@@ -203,15 +208,17 @@ function App() {
                           <LoadingScreen/>
                       ): (
                         <div className="app__videos">
-                          {videosDetails.map((item) => (
+                          {videosDetails.map((item, index) => (
                             <Video
                               key={item?.videoID}
                               videoDetails={item}
                               isPlaying={item.isPlaying}
                               onVideoToggle={handleVideoToggle}
                               onSendFormClick={hanldeSendFormClick}
+                              isLastVideo={index === videosDetails.length - 1}
                             />
                           ))}
+                          <LastVideoMessage onContactAdmin={handleContactAdmin}/>
                         </div>
                       )
                     }

@@ -16,7 +16,6 @@ import SendIcon from "@mui/icons-material/Send";
 
 const Footer = ({ videoDetails, onSendFormClick }) => {
   const handleSendFormClick = () => {
-    debugger;
     onSendFormClick(videoDetails); // Pass videoDetails to the parent component
   };
 
