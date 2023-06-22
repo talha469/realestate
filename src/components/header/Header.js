@@ -2,7 +2,7 @@ import React from 'react';
 import { Box } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
-import AppleIcon from '@mui/icons-material/Apple';
+import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import Searchbar from './Searchbar';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -24,7 +24,7 @@ const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger }) => {
         width: "100%",
       }}
     >
-      <AppleIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingLeft: 2 }} />
+      <HomeIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingLeft: 2 }} />
       <Searchbar sendSearchedText={sendSearchedText} inputEmptyTrigger={inputEmptyTrigger}/>
 
       <IconButton onClick={onFilterClick}>

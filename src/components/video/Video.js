@@ -56,7 +56,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
           onClick={onVideoPress}
           ref={videoRef}
           loop
-          controls
+          // controls
           controlsList="nodownload"
           src={videoDetails?.awsPathKey}
         ></video>
