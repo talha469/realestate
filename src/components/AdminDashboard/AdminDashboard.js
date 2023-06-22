@@ -154,8 +154,8 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
               value={bedrooms}
               onChange={(e) => setBedrooms(e.target.value)}
             >
-              <MenuItem value="">Select</MenuItem>
-              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="0">Studio</MenuItem>
+              <MenuItem value="1">Studio</MenuItem>
               <MenuItem value="2">2</MenuItem>
               <MenuItem value="3">3</MenuItem>
               <MenuItem value="4">4</MenuItem>

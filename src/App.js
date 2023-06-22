@@ -15,7 +15,7 @@ function App() {
   const [videosDetails, setVideosDetails] = useState([]);
   const [isFormOpen, setIsFormOpen] = useState(true);
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
-  const [isVideoInformation, setIsVideoInformation] = useState(false);
+  const [isVideoInformation, setIsVideoInformation] = useState(true);
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
   const [currentVideoID, setCurrentVideoID] = useState(null);
@@ -40,7 +40,9 @@ function App() {
   }, []);
 
   const handleIsSendFormOpen = () => {
+    debugger
     setIsSendFormOpen(false);
+    setIsVideoInformation(true);
   };
 
   const handleSendFormData = (formData) => {
@@ -54,7 +56,7 @@ function App() {
       AWSPathKey: selectedVideoData.awsPathKey,
       DealType: selectedVideoData.dealType,
       Price: parseInt(selectedVideoData.price),
-      Bedrooms: parseInt(selectedVideoData.bedrooms),
+      Bedrooms: (selectedVideoData.bedrooms),
       Bathrooms: parseInt(selectedVideoData.bathrooms),
       Zip:
         selectedVideoData?.zip !== null
@@ -80,12 +82,11 @@ function App() {
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    debugger;
     const url =
-      "https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData";
+      "https://localhost:7027/fetchs3BucketData";
     const data = {
-      Bedrooms: parseInt(requestData.bedrooms),
-      Bathrooms: parseInt(requestData.bathrooms),
+      Bedrooms: (requestData.bedrooms),
+      Bathrooms: (requestData.bathrooms),
       City: requestData.city,
       PriceMin: requestData.priceRange[0],
       PriceMax: requestData.priceRange[1],
@@ -113,7 +114,6 @@ function App() {
     axios
       .get("https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData")
       .then((result) => {
-        debugger;
         console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
@@ -159,7 +159,7 @@ function App() {
 
   const HandleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
-    const url = `https://visheshmanwani-001-site2.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
+    const url = `https://localhost:7027/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
       search
     )}`;
     axios

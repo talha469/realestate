@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, OutlinedInput } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -26,17 +26,17 @@ const FormComponent = ({ onSubmit }) => {
   });
   const [bedrooms, setBedrooms] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
-    return formData ? formData.bedrooms : "";
+    return formData ? formData.bedrooms : [];
   });
+
   const [bathrooms, setBathrooms] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
-    return formData ? formData.bathrooms : "";
+    return formData ? formData.bathrooms : [];
   });
   const [city, setCity] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
     return formData ? formData.city : "";
   });
-
 
   // Load form data from cache when component mounts
   useEffect(() => {
@@ -87,11 +87,17 @@ const FormComponent = ({ onSubmit }) => {
   };
 
   const handleBedroomsChange = (event) => {
-    setBedrooms(event.target.value);
+    const selectedOptions = Array.isArray(event.target.value)
+      ? event.target.value
+      : [event.target.value];
+    setBedrooms(selectedOptions);
   };
 
   const handleBathroomsChange = (event) => {
-    setBathrooms(event.target.value);
+    const selectedOptions = Array.isArray(event.target.value)
+      ? event.target.value
+      : [event.target.value];
+    setBathrooms(selectedOptions);
   };
 
   const handleCityChange = (event, value) => {
@@ -152,18 +158,28 @@ const FormComponent = ({ onSubmit }) => {
           />
         </Box>
 
-        <Box mt={3}>
+        <Box mt={3} sx={{ width: "200" }}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
             Bedrooms
           </Typography>
-          <FormControl sx={{ minWidth: "120px" }}>
+          <FormControl sx={{ minWidth: "200px" }}>
             <Select
+              multiple
               value={bedrooms}
               onChange={handleBedroomsChange}
-              displayEmpty
-              inputProps={{ "aria-label": "bedrooms" }}
+              input={<OutlinedInput label="Bedrooms" />}
+              renderValue={(selected) => {
+                if (selected.includes(0)) {
+                  // Replace the value 0 with "Studio" in the rendered value
+                  return selected
+                    .filter((value) => value !== 0)
+                    .concat("Studio")
+                    .join(", ");
+                }
+                return selected.join(", ");
+              }}
             >
-              <MenuItem value="">Bedrooms</MenuItem>
+              <MenuItem value={0}>Studio</MenuItem>
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
               <MenuItem value={3}>3</MenuItem>
@@ -173,18 +189,18 @@ const FormComponent = ({ onSubmit }) => {
           </FormControl>
         </Box>
 
-        <Box mt={3}>
+        <Box mt={3} sx={{ width: "200" }}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
             Bathrooms
           </Typography>
-          <FormControl sx={{ minWidth: "120px" }}>
+          <FormControl sx={{ minWidth: "200px" }}>
             <Select
+            multiple
               value={bathrooms}
               onChange={handleBathroomsChange}
               displayEmpty
               inputProps={{ "aria-label": "bathrooms" }}
             >
-              <MenuItem value="">Bathrooms</MenuItem>
               <MenuItem value={1}>1</MenuItem>
               <MenuItem value={2}>2</MenuItem>
               <MenuItem value={3}>3</MenuItem>
@@ -194,14 +210,16 @@ const FormComponent = ({ onSubmit }) => {
           </FormControl>
         </Box>
 
-        <Box mt={3}>
+        <Box mt={3} sx={{ width: "200" }}>
           <Autocomplete
             inputValue={city}
             onInputChange={handleCityChange}
             options={[
-              { label: "City 1", value: "city1" },
-              { label: "City 2", value: "city2" },
-              { label: "City 3", value: "city3" },
+              { label: "Bronx", value: "city1" },
+              { label: "Brooklyn", value: "city2" },
+              { label: "Manhattan", value: "city3" },
+              { label: "Queens", value: "city3" },
+              { label: "Staten Island", value: "city3" },
               // Add more cities as needed
             ]}
             getOptionLabel={(option) => option.label}

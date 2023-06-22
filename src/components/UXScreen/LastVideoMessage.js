@@ -6,7 +6,7 @@ import Image from "./contact.png";
 
 const LastVideoMessage = ({onContactAdmin}) => {
   const handleContactClick = () => {
-    onContactAdmin();
+    onContactAdmin(true);
   };
 
   return (

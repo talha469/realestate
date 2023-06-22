@@ -29,7 +29,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
 
   useEffect(() => {
     let timeout;
-
+    
     if (isSubmitted) {
       timeout = setTimeout(() => {
         setIsSubmitted(false);
@@ -122,7 +122,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
                 margin="normal"
               />
               
-              {isVideoInformation ? (  <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
+              {isVideoInformation == true ? (  <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
                 <p style={{ marginRight: "1rem" }}>
                   <strong>Bathrooms:</strong> {bathrooms}
                 </p>
