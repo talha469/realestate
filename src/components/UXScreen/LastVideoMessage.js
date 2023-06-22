@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Button, Stack } from "@mui/material";
 import { Send } from "@mui/icons-material";
 import "../video/Video.css";
+import Image from "./contact.png";
 
 const LastVideoMessage = ({onContactAdmin}) => {
   const handleContactClick = () => {
@@ -16,7 +17,7 @@ const LastVideoMessage = ({onContactAdmin}) => {
         alignItems: "center",
         width: "100%",
         height: "100vh",
-        backgroundColor: "black",
+        backgroundColor: "black"
       }}
     >
       <Stack
@@ -28,6 +29,7 @@ const LastVideoMessage = ({onContactAdmin}) => {
         }}
         spacing={2}
       >
+        <img src={Image} alt="No property available" style={{ width: "100%" }} />
         <Typography variant="h4" gutterBottom>
           Thank you for watching!
         </Typography>
