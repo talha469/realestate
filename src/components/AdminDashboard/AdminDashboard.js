@@ -32,6 +32,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
+import EditData from './EditData';
 
 const UploadVideoForm = ({ handleSidebarClose }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -62,7 +63,7 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
     console.log(uploadVideoData);
     // Send video data to your C# API   
     axios
-      .post('https://visheshmanwani-001-site2.itempurl.com', uploadVideoData)
+      .post('https://localhost:7027/AdminDashboard', uploadVideoData)
       .then((response) => {
         toast.success('Video uploaded successfully');
         console.log('Video data sent successfully:', response.data);
@@ -155,7 +156,7 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
               onChange={(e) => setBedrooms(e.target.value)}
             >
               <MenuItem value="0">Studio</MenuItem>
-              <MenuItem value="1">Studio</MenuItem>
+              <MenuItem value="1">1</MenuItem>
               <MenuItem value="2">2</MenuItem>
               <MenuItem value="3">3</MenuItem>
               <MenuItem value="4">4</MenuItem>
@@ -180,10 +181,24 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
             </Select>
           </FormControl>
         </Grid>
+
+        <Grid item xs={6}>
+          <FormControl fullWidth margin="normal">
+            <InputLabel id="bathrooms-label">City</InputLabel>
+            <Select
+              labelId="City"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <MenuItem value="Bronx">Bronx</MenuItem>
+              <MenuItem value="Brooklyn">Brooklyn</MenuItem>
+              <MenuItem value="Manhattan">Manhattan</MenuItem>
+              <MenuItem value="Queens">Queens</MenuItem>
+              <MenuItem value="Staten Island">Staten Island</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
       </Grid>
-      <FormControl fullWidth margin="normal">
-        <TextField label="City" value={city} onChange={(e) => setCity(e.target.value)} />
-      </FormControl>
       <Button
         variant="contained"
         color="primary"
@@ -220,6 +235,12 @@ const AdminDashboard = () => {
     handleSidebarClose();
   };
 
+  const handleEditData = () => {
+    setCurrentComponent('editdata');
+    console.log(currentComponent)
+    handleSidebarClose();
+  };
+
   return (
     <div>
       <AppBar position="static">
@@ -247,11 +268,17 @@ const AdminDashboard = () => {
             </ListItemIcon>
             <ListItemText primary="Messages" />
           </ListItem>
+        <ListItem button onClick={handleEditData}>
+            <ListItemIcon>
+              <MessageIcon />
+            </ListItemIcon>
+            <ListItemText primary="Edit Videos" />
+          </ListItem>
         </List>
       </Drawer>
       {currentComponent === 'upload' ? (
         <UploadVideoForm handleSidebarClose={handleSidebarClose} />
-      ) : (
+      ) : currentComponent === 'editdata' ? <EditData/> :(
         <Messages />
       )}
     </div>

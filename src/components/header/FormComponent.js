@@ -215,11 +215,11 @@ const FormComponent = ({ onSubmit }) => {
             inputValue={city}
             onInputChange={handleCityChange}
             options={[
-              { label: "Bronx", value: "city1" },
-              { label: "Brooklyn", value: "city2" },
-              { label: "Manhattan", value: "city3" },
-              { label: "Queens", value: "city3" },
-              { label: "Staten Island", value: "city3" },
+              { label: "Bronx", value: "Bronx" },
+              { label: "Brooklyn", value: "Brooklyn" },
+              { label: "Manhattan", value: "Manhattan" },
+              { label: "Queens", value: "Queens" },
+              { label: "Staten Island", value: "Staten Island" },
               // Add more cities as needed
             ]}
             getOptionLabel={(option) => option.label}

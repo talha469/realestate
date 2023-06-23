@@ -123,28 +123,7 @@ const Messages = () => {
           )}
         </div>
       </Snackbar>
-      {/* {data.length > 0 && (
-        <TableContainer component={Paper} style={{ marginTop: '1rem' }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Message</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row) => (
-                <TableRow key={row.id}>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.email}</TableCell>
-                  <TableCell>{row.message}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )} */}
+      
       <ToastContainer />
     </div>
   );
