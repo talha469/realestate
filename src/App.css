@@ -1,6 +1,7 @@
 html{
     scroll-snap-type: y mandatory;
     height: 92vh;
+    background-color: black;
 }
 
 .App{

@@ -10,20 +10,26 @@ import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import LoadingScreen from "./components/UXScreen/LoadingScreen";
 import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
 import NoPropertyAvailable from "./components/UXScreen/NoPropertyAvailable";
+import WelcomeScreen from "./components/UXScreen/WelcomeScreen";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
-  const [isFormOpen, setIsFormOpen] = useState(true);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [isSendFormOpen, setIsSendFormOpen] = useState(false);
   const [isVideoInformation, setIsVideoInformation] = useState(true);
   const [selectedVideoData, setSelectedVideoData] = useState("");
   const [contactData, sendContactData] = useState([]);
   const [currentVideoID, setCurrentVideoID] = useState(null);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
+  const [isWelcomeScreen, setIsWelcomeScreen] = useState(false);
 
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
     setIsFormOpen(false);
+  };
+
+  const handleIsUserInteracted = () => {
+    setIsWelcomeScreen(false);
   };
 
   const handleContactAdmin = () => {
@@ -129,6 +135,7 @@ function App() {
 
   useEffect(() => {
     getData();
+    setIsWelcomeScreen(true)
   }, []);
 
   const handleVideoToggle = (videoID) => {
@@ -206,7 +213,7 @@ function App() {
                         <FormComponent onSubmit={handleFormSubmit} />
                       ) : isScreenLoading ? (
                         <LoadingScreen />
-                      ) : (
+                      ) : isWelcomeScreen ? (<WelcomeScreen setIsUserInteracted={handleIsUserInteracted}/>) : (
                         <div className="app__videos">
                           {videosDetails && videosDetails.length > 0 ? (
                             videosDetails.map((item, index) => (
@@ -216,6 +223,7 @@ function App() {
                                 isPlaying={item.isPlaying}
                                 onVideoToggle={handleVideoToggle}
                                 onSendFormClick={hanldeSendFormClick}
+                                isMuted={index === 0}
                                 isLastVideo={index === videosDetails.length - 1}
                               />
                             ))

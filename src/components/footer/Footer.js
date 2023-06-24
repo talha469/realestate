@@ -39,10 +39,10 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
           }}
         >
           {/* <Bathtub sx={{ color: 'white', fontSize:'16px' }} /> */}
-          Bathrooms :
+          Bathroom :
           <span style={{ marginRight: "15px" }}> {videoDetails?.bathrooms}</span>
           {/* <Hotel sx={{ color: 'white', fontSize:'16px' }} /> */}
-          Bedrooms :
+          Bedroom :
           <span style={{ marginRight: "15px" }}> {videoDetails?.bedrooms == 0 ? "Studio" : videoDetails?.bedrooms}</span>
         </Box>
 

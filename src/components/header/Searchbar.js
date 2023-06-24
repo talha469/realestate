@@ -38,7 +38,7 @@ const Searchbar = ({ sendSearchedText, inputEmptyTrigger }) => {
     >
       <input
         className='search-bar'
-        placeholder='3 bedroom,2 bat..'
+        placeholder='2 bedroom,3 bat..'
         value={searchTerm}
         onChange={(e) => setSearchItem(e.target.value)}
         onBlur={handleBlur}

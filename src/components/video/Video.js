@@ -4,7 +4,7 @@ import Footer from '../footer/Footer';
 import { Typography, Button } from "@mui/material";
 import './Video.css';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isLastVideo  }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
