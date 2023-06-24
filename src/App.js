@@ -27,6 +27,7 @@ function App() {
 
   const handleVideoDetails = (data) => {
     setVideosDetails(data);
+    
     let maxRentPrice = 0;
     let maxBuyPrice = 0;
 
@@ -133,7 +134,7 @@ function App() {
           ...video,
           isPlaying: false,
         }));
-        handleVideoDetails(updatedVideos);
+        setVideosDetails(updatedVideos);
         setIsScreenLoading(false);
       })
       .catch((error) => {
@@ -172,7 +173,7 @@ function App() {
       }
       return { ...video, isPlaying: false };
     });
-    handleVideoDetails(updatedVideos);
+    setVideosDetails(updatedVideos);
     setCurrentVideoID((prevVideoID) => {
       if (prevVideoID === videoID) {
         return null;
@@ -212,7 +213,7 @@ function App() {
           ...video,
           isPlaying: false,
         }));
-        handleVideoDetails(updatedVideos);
+        setVideosDetails(updatedVideos);
         setIsScreenLoading(false);
       })
       .catch((error) => {
