@@ -22,6 +22,34 @@ function App() {
   const [currentVideoID, setCurrentVideoID] = useState(null);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [isWelcomeScreen, setIsWelcomeScreen] = useState(false);
+  const [rentMax, setRentMax] = useState(0);
+  const [buyMax, setBuyMax] = useState(0);
+
+  const handleVideoDetails = (data) => {
+    setVideosDetails(data);
+    let maxRentPrice = 0;
+    let maxBuyPrice = 0;
+
+    for (let i = 0; i < data.length; i++) {
+      const apartment = data[i];
+
+      if (apartment.dealType === "Rent") {
+        if (apartment.price > maxRentPrice) {
+          maxRentPrice = apartment.price;
+        }
+      } else if (apartment.dealType === "Buy") {
+        if (apartment.price > maxBuyPrice) {
+          maxBuyPrice = apartment.price;
+        }
+      }
+    }
+
+    console.log("Max Rent Price:", maxRentPrice);
+    console.log("Max Buy Price:", maxBuyPrice);
+
+    setRentMax(maxRentPrice);
+    setBuyMax(maxBuyPrice);
+  };
 
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
@@ -46,7 +74,7 @@ function App() {
   }, []);
 
   const handleIsSendFormOpen = () => {
-    debugger
+    debugger;
     setIsSendFormOpen(false);
     setIsVideoInformation(true);
   };
@@ -62,7 +90,7 @@ function App() {
       AWSPathKey: selectedVideoData.awsPathKey,
       DealType: selectedVideoData.dealType,
       Price: parseInt(selectedVideoData.price),
-      Bedrooms: (selectedVideoData.bedrooms),
+      Bedrooms: selectedVideoData.bedrooms,
       Bathrooms: parseInt(selectedVideoData.bathrooms),
       Zip:
         selectedVideoData?.zip !== null
@@ -88,11 +116,10 @@ function App() {
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    const url =
-      "https://localhost:7027/fetchs3BucketData";
+    const url = "https://localhost:7027/fetchs3BucketData";
     const data = {
-      Bedrooms: (requestData.bedrooms),
-      Bathrooms: (requestData.bathrooms),
+      Bedrooms: requestData.bedrooms,
+      Bathrooms: requestData.bathrooms,
       City: requestData.city,
       PriceMin: requestData.priceRange[0],
       PriceMax: requestData.priceRange[1],
@@ -106,7 +133,7 @@ function App() {
           ...video,
           isPlaying: false,
         }));
-        setVideosDetails(updatedVideos);
+        handleVideoDetails(updatedVideos);
         setIsScreenLoading(false);
       })
       .catch((error) => {
@@ -125,7 +152,7 @@ function App() {
           ...video,
           isPlaying: false,
         }));
-        setVideosDetails(updatedVideos);
+        handleVideoDetails(updatedVideos);
         setIsScreenLoading(false);
       })
       .catch((error) => {
@@ -135,7 +162,7 @@ function App() {
 
   useEffect(() => {
     getData();
-    setIsWelcomeScreen(true)
+    setIsWelcomeScreen(true);
   }, []);
 
   const handleVideoToggle = (videoID) => {
@@ -145,7 +172,7 @@ function App() {
       }
       return { ...video, isPlaying: false };
     });
-    setVideosDetails(updatedVideos);
+    handleVideoDetails(updatedVideos);
     setCurrentVideoID((prevVideoID) => {
       if (prevVideoID === videoID) {
         return null;
@@ -160,12 +187,12 @@ function App() {
   };
 
   const handleHomeIconClick = (clicked) => {
-    debugger
-    if(clicked){
+    debugger;
+    if (clicked) {
       getData();
-      setIsFormOpen(false)
+      setIsFormOpen(false);
     }
-  }
+  };
 
   const hanldeSendFormClick = (data) => {
     setIsSendFormOpen(true);
@@ -185,7 +212,7 @@ function App() {
           ...video,
           isPlaying: false,
         }));
-        setVideosDetails(updatedVideos);
+        handleVideoDetails(updatedVideos);
         setIsScreenLoading(false);
       })
       .catch((error) => {
@@ -212,20 +239,26 @@ function App() {
                   onFilterClick={handleFilterClick}
                   sendSearchedText={HandleSearchedTextFilter}
                   inputEmptyTrigger={inputtrigger}
-                  onHomeIconClick = {handleHomeIconClick}
+                  onHomeIconClick={handleHomeIconClick}
                 />
                 <Routes>
                   <Route
                     path="/"
                     element={
                       isFormOpen ? (
-                        <FormComponent onSubmit={handleFormSubmit} />
+                        <FormComponent
+                          onSubmit={handleFormSubmit}
+                          buyMax={buyMax}
+                          rentMax={rentMax}
+                        />
                       ) : isScreenLoading ? (
                         <LoadingScreen />
                       ) : (
                         <div className="app__videos">
                           {isWelcomeScreen ? (
-                            <WelcomeScreen setIsUserInteracted={handleIsUserInteracted} />
+                            <WelcomeScreen
+                              setIsUserInteracted={handleIsUserInteracted}
+                            />
                           ) : (
                             <>
                               {videosDetails && videosDetails.length > 0 ? (
@@ -237,14 +270,18 @@ function App() {
                                     onVideoToggle={handleVideoToggle}
                                     onSendFormClick={hanldeSendFormClick}
                                     isMuted={index === 0}
-                                    isLastVideo={index === videosDetails.length - 1}
+                                    isLastVideo={
+                                      index === videosDetails.length - 1
+                                    }
                                   />
                                 ))
                               ) : (
                                 <NoPropertyAvailable />
                               )}
                               {videosDetails && videosDetails.length > 0 && (
-                                <LastVideoMessage onContactAdmin={handleContactAdmin} />
+                                <LastVideoMessage
+                                  onContactAdmin={handleContactAdmin}
+                                />
                               )}
                             </>
                           )}
@@ -258,7 +295,7 @@ function App() {
           />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
-  
+
         {isSendFormOpen && (
           <div className="app__fullscreen">
             <SendForm
@@ -272,7 +309,6 @@ function App() {
       </div>
     </BrowserRouter>
   );
-  
 }
 
 export default App;

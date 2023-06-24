@@ -15,10 +15,10 @@ import HandshakeIcon from "@mui/icons-material/Handshake";
 import LocalHotelIcon from "@mui/icons-material/LocalHotel";
 import BathtubIcon from "@mui/icons-material/Bathtub";
 
-const FormComponent = ({ onSubmit }) => {
+const FormComponent = ({ onSubmit, buyMax, rentMax }) => {
   const [rentOrBuy, setRentOrBuy] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
-    return formData ? formData.rentOrBuy : "";
+    return formData ? formData.rentOrBuy : "rent";
   });
   const [priceRange, setPriceRange] = useState(() => {
     const formData = JSON.parse(localStorage.getItem("formData"));
@@ -79,9 +79,15 @@ const FormComponent = ({ onSubmit }) => {
   }, []);
 
   const handleRentOrBuyChange = (event) => {
-    setRentOrBuy(event.target.value);
-  };
+    const selectedOption = event.target.value;
+    setRentOrBuy(selectedOption);
 
+    if (selectedOption === "rent") {
+      setPriceRange([0, rentMax]);
+    } else if (selectedOption === "buy") {
+      setPriceRange([0, buyMax]);
+    }
+  };
   const handlePriceRangeChange = (event, newValue) => {
     setPriceRange(newValue);
   };
@@ -148,12 +154,15 @@ const FormComponent = ({ onSubmit }) => {
             value={priceRange}
             onChange={handlePriceRangeChange}
             min={0}
-            max={20000}
+            max={rentOrBuy === "buy" ? buyMax : rentMax}
             step={100}
             valueLabelDisplay="auto"
             marks={[
               { value: 0, label: "$0" },
-              { value: 20000, label: "$20000" },
+              {
+                value: rentOrBuy === "buy" ? buyMax : rentMax,
+                label: `$${rentOrBuy === "buy" ? buyMax : rentMax}`,
+              },
             ]}
           />
         </Box>
@@ -195,7 +204,7 @@ const FormComponent = ({ onSubmit }) => {
           </Typography>
           <FormControl sx={{ minWidth: "200px" }}>
             <Select
-            multiple
+              multiple
               value={bathrooms}
               onChange={handleBathroomsChange}
               displayEmpty
