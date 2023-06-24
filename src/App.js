@@ -159,6 +159,14 @@ function App() {
     setIsFormOpen(!isFormOpen);
   };
 
+  const handleHomeIconClick = (clicked) => {
+    debugger
+    if(clicked){
+      getData();
+      setIsFormOpen(false)
+    }
+  }
+
   const hanldeSendFormClick = (data) => {
     setIsSendFormOpen(true);
     setSelectedVideoData(data);
@@ -204,6 +212,7 @@ function App() {
                   onFilterClick={handleFilterClick}
                   sendSearchedText={HandleSearchedTextFilter}
                   inputEmptyTrigger={inputtrigger}
+                  onHomeIconClick = {handleHomeIconClick}
                 />
                 <Routes>
                   <Route

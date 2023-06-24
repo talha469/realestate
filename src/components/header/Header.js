@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import { Link } from 'react-router-dom';
@@ -11,7 +11,12 @@ import { colors } from '@mui/material';
 import FormComponent from './FormComponent';
 
 
-const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger }) => {
+const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger,onHomeIconClick }) => {
+
+  const handleHomeIconClick = () => {
+    onHomeIconClick(true); // Call the parent function and pass `true`
+  };
+
   return (
     <Stack
       className='header'
@@ -26,7 +31,7 @@ const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger }) => {
         width: "100%",
       }}
     >
-      <HomeIcon sx={{ height: 45, color: "white", cursor: 'pointer', paddingLeft: 2 }} />
+      <HomeIcon onClick={ handleHomeIconClick} sx={{ height: 45, color: "white", cursor: 'pointer', paddingLeft: 2 }} />
       <Searchbar sendSearchedText={sendSearchedText} inputEmptyTrigger={inputEmptyTrigger}/>
 
       <IconButton onClick={onFilterClick}>
