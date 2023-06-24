@@ -213,27 +213,31 @@ function App() {
                         <FormComponent onSubmit={handleFormSubmit} />
                       ) : isScreenLoading ? (
                         <LoadingScreen />
-                      ) : isWelcomeScreen ? (<WelcomeScreen setIsUserInteracted={handleIsUserInteracted}/>) : (
+                      ) : (
                         <div className="app__videos">
-                          {videosDetails && videosDetails.length > 0 ? (
-                            videosDetails.map((item, index) => (
-                              <Video
-                                key={item?.videoID}
-                                videoDetails={item}
-                                isPlaying={item.isPlaying}
-                                onVideoToggle={handleVideoToggle}
-                                onSendFormClick={hanldeSendFormClick}
-                                isMuted={index === 0}
-                                isLastVideo={index === videosDetails.length - 1}
-                              />
-                            ))
+                          {isWelcomeScreen ? (
+                            <WelcomeScreen setIsUserInteracted={handleIsUserInteracted} />
                           ) : (
-                            <NoPropertyAvailable />
-                          )}
-                          {videosDetails && videosDetails.length > 0 && (
-                            <LastVideoMessage
-                              onContactAdmin={handleContactAdmin}
-                            />
+                            <>
+                              {videosDetails && videosDetails.length > 0 ? (
+                                videosDetails.map((item, index) => (
+                                  <Video
+                                    key={item?.videoID}
+                                    videoDetails={item}
+                                    isPlaying={item.isPlaying}
+                                    onVideoToggle={handleVideoToggle}
+                                    onSendFormClick={hanldeSendFormClick}
+                                    isMuted={index === 0}
+                                    isLastVideo={index === videosDetails.length - 1}
+                                  />
+                                ))
+                              ) : (
+                                <NoPropertyAvailable />
+                              )}
+                              {videosDetails && videosDetails.length > 0 && (
+                                <LastVideoMessage onContactAdmin={handleContactAdmin} />
+                              )}
+                            </>
                           )}
                         </div>
                       )
@@ -245,20 +249,21 @@ function App() {
           />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
-
+  
         {isSendFormOpen && (
           <div className="app__fullscreen">
             <SendForm
               onClose={handleIsSendFormOpen}
               onSubmit={handleSendFormData}
               videoData={selectedVideoData}
-              isVideoInformation = {isVideoInformation}
+              isVideoInformation={isVideoInformation}
             />
           </div>
         )}
       </div>
     </BrowserRouter>
   );
+  
 }
 
 export default App;

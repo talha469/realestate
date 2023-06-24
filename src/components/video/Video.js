@@ -4,7 +4,7 @@ import Footer from '../footer/Footer';
 import { Typography, Button } from "@mui/material";
 import './Video.css';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -56,6 +56,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick }) => {
         <video
           className="video__player"
           onClick={onVideoPress}
+          // muted={isMuted}
           ref={videoRef}
           loop
           // controls

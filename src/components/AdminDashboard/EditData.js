@@ -2,34 +2,26 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Container from 'react-bootstrap/Container';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 const EditData = () => {
   const [videosDetails, setVideosDetails] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState(null);
-
-  const getData = () => {
-    axios
-      .get('https://localhost:7027/fetchs3BucketData')
-      .then((result) => {
-        const updatedVideos = result.data.map((video) => ({
-          ...video,
-          isPlaying: false,
-        }));
-        setVideosDetails(updatedVideos);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   useEffect(() => {
+    const getData = () => {
+      axios
+        .get('https://localhost:7027/fetchs3BucketData')
+        .then((result) => {
+          const updatedVideos = result.data.map((video) => ({
+            ...video,
+            isPlaying: false,
+          }));
+          setVideosDetails(updatedVideos);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+
     getData();
   }, []);
 
@@ -38,28 +30,14 @@ const EditData = () => {
     console.log('Edit row with ID:', id);
   };
 
-  const handleDelete = (id) => {
-    console.log('Delete row with ID:', id);
-  };
-
-  const handleShowModal = (video) => {
-    setSelectedVideo(video);
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
   const getThumbnailUrl = (videoUrl) => {
-    debugger
     // Assuming the video URL is in the format of https://example.com/video.mp4
     // Replace '.mp4' with '.jpg' to get the thumbnail URL
     return videoUrl.replace('.mp4', '.jpg');
   };
 
   return (
-    <Container>
+    <div>
       <h2>Video Details</h2>
       <Table striped bordered hover>
         <thead>
@@ -76,7 +54,7 @@ const EditData = () => {
         <tbody>
           {videosDetails.map((video) => (
             <tr key={video?.videoID}>
-               <td>
+              <td>
                 <img src={getThumbnailUrl(video?.awsPathKey)} alt="Thumbnail" style={{ width: '100px' }} />
               </td>
               <td>{video.bathrooms}</td>
@@ -93,7 +71,7 @@ const EditData = () => {
           ))}
         </tbody>
       </Table>
-    </Container>
+    </div>
   );
 };
 
