@@ -68,8 +68,8 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
         <IconButton onClick={handleSendFormClick}>
           <SendIcon
             sx={{
-              height: 45,
-              marginBottom:'25vh',
+              height: 25,
+              marginBottom:'25px',
               color: "white",
               cursor: "pointer",
               position:'relative',
