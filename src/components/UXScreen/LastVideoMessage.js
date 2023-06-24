@@ -16,8 +16,9 @@ const LastVideoMessage = ({onContactAdmin}) => {
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
-        height: "100vh",
-        backgroundColor: "black"
+        height: "80vh",
+        backgroundColor: "black",
+        marginBottom:'45vh'
       }}
     >
       <Stack

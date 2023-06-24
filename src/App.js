@@ -81,7 +81,7 @@ function App() {
   };
 
   const handleSendFormData = (formData) => {
-    const url = "http://visheshmanwani-001-site1.itempurl.com/ContactForm";
+    const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm";
 
     const data = {
       Name: formData.name,
@@ -117,7 +117,7 @@ function App() {
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    const url = "http://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
+    const url = "https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
     const data = {
       Bedrooms: requestData.bedrooms,
       Bathrooms: requestData.bathrooms,
@@ -146,7 +146,7 @@ function App() {
   const getData = () => {
     setIsScreenLoading(true);
     axios
-      .get("http://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
+      .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
       .then((result) => {
         console.log(result);
         const updatedVideos = result.data.map((video) => ({
@@ -212,7 +212,7 @@ function App() {
 
   const HandleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
-    const url = `http://visheshmanwani-001-site1.itempurl.com//fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
+    const url = `https://visheshmanwani-001-site1.itempurl.com//fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
       search
     )}`;
     axios
