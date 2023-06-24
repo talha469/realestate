@@ -20,8 +20,7 @@ const StyledDialogTitle = styled(DialogTitle)`
   align-items: center;
 `;
 
-
-const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
+const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -41,6 +40,13 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate email address
+    const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isEmailValid) {
+      return;
+    }
+    
     const formData = {
       name,
       email,
@@ -109,6 +115,8 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
                 fullWidth
                 margin="normal"
                 required
+                error={email.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+                helperText={email.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? 'Please enter a valid email address' : ''}
               />
 
               <TextField
@@ -122,28 +130,28 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation}) => {
                 margin="normal"
               />
               
-              {isVideoInformation == true ? (  <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>Bathrooms:</strong> {bathrooms}
-                </p>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>Bedrooms:</strong> {bedrooms}
-                </p>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>City:</strong> {city}
-                </p>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>Deal Type:</strong> {dealType}
-                </p>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>Price:</strong> ${price}
-                </p>
-                <p style={{ marginRight: "1rem" }}>
-                  <strong>Google Location:</strong> {googleMapAddress}
-                </p>
-              </Typography>) : null}
-
-            
+              {isVideoInformation == true ? (
+                <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>Bathrooms:</strong> {bathrooms}
+                  </p>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>Bedrooms:</strong> {bedrooms}
+                  </p>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>City:</strong> {city}
+                  </p>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>Deal Type:</strong> {dealType}
+                  </p>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>Price:</strong> ${price}
+                  </p>
+                  <p style={{ marginRight: "1rem" }}>
+                    <strong>Google Location:</strong> {googleMapAddress}
+                  </p>
+                </Typography>
+              ) : null}
 
               <DialogActions>
                 <Button variant="contained" color="primary" type="submit">

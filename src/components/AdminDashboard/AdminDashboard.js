@@ -34,7 +34,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
 import EditData from './EditData';
 
-const UploadVideoForm = ({ handleSidebarClose }) => {
+const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [dealType, setDealType] = useState('Rent');
   const [price, setPrice] = useState('');
@@ -61,12 +61,14 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
 
   const sendVideoData = (uploadVideoData) => {
     console.log(uploadVideoData);
+    uploadInProcess(true);
     // Send video data to your C# API   
     axios
       .post('https://localhost:7027/AdminDashboard', uploadVideoData)
       .then((response) => {
         toast.success('Video uploaded successfully');
         console.log('Video data sent successfully:', response.data);
+        uploadInProcess(false);
         // Perform any desired actions or handle the response from the backend
       })
       .catch((error) => {
@@ -213,7 +215,7 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
   );
 };
 
-const AdminDashboard = () => {
+const AdminDashboard = ({uploadInProcess}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [currentComponent, setCurrentComponent] = useState('upload'); // 'upload' or 'messages'
 
@@ -277,7 +279,7 @@ const AdminDashboard = () => {
         </List>
       </Drawer>
       {currentComponent === 'upload' ? (
-        <UploadVideoForm handleSidebarClose={handleSidebarClose} />
+        <UploadVideoForm handleSidebarClose={handleSidebarClose} uploadInProcess={uploadInProcess} />
       ) : currentComponent === 'editdata' ? <EditData/> :(
         <Messages />
       )}

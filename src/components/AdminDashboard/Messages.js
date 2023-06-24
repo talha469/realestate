@@ -21,6 +21,7 @@ const Messages = () => {
     axios
       .get('https://visheshmanwani-001-site2.itempurl.com/ContactForm') // Replace with your API endpoint
       .then((response) => {
+        console.log(response.data)
         setData(response.data);
         setIsLoading(false);
       })
@@ -124,6 +125,37 @@ const Messages = () => {
         </div>
       </Snackbar>
       
+      <TableContainer component={Paper} style={{ marginRight: '3rem', marginTop:'3rem'}}>
+        <Table size="small" aria-label="Messages Table" >
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Email</TableCell>
+              <TableCell align="right">Message</TableCell>
+              <TableCell align="right">City</TableCell>
+              <TableCell align="right">Bedroom</TableCell>
+              <TableCell align="right">Bathroom</TableCell>
+              <TableCell align="right">Deal</TableCell>
+              {/* Add more table headers based on your SQL data structure */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell align="right">{item.name}</TableCell>
+                <TableCell align="right">{item.email}</TableCell>
+                <TableCell align="right">{item.message}</TableCell>
+                <TableCell align="right">{item.city}</TableCell>
+                <TableCell align="right">{item.bedrooms}</TableCell>
+                <TableCell align="right">{item.bathrooms}</TableCell>
+                <TableCell align="right">{item.dealType}</TableCell>
+                {/* Add more table cells based on your SQL data structure */}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       <ToastContainer />
     </div>
   );

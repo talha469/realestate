@@ -27,7 +27,7 @@ function App() {
 
   const handleVideoDetails = (data) => {
     setVideosDetails(data);
-    
+
     let maxRentPrice = 0;
     let maxBuyPrice = 0;
 
@@ -200,6 +200,16 @@ function App() {
     setSelectedVideoData(data);
   };
 
+  const handleUploadInProcess= (data) => {
+    debugger
+    if(data){
+     setIsScreenLoading(true);
+    }
+    else{
+      setIsScreenLoading(false);
+    }
+  } 
+
   const HandleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
     const url = `https://localhost:7027/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
@@ -294,7 +304,9 @@ function App() {
               </div>
             }
           />
-          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin" element={isScreenLoading ? (
+                        <LoadingScreen />
+                      ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
         </Routes>
 
         {isSendFormOpen && (

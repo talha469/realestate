@@ -30,9 +30,19 @@ const EditData = () => {
     getData();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log(videosDetails);
-    console.log('Edit row with ID:', id);
+  const handleEdit = (videoID) => {
+    if(window.confirm("Are you sure you want to update this record")){
+      axios.delete(`https://localhost:7027/AdminDashboard/sold/${videoID}`)
+      .then((result) => {
+        if(result.status  === 200){
+          toast.success('Record Updated');
+          getData();
+        }
+      }) 
+      .catch ((error) => {
+        toast.error(error)
+      }) 
+  }
   };
 
   const handleDelete = (videoID) => {
