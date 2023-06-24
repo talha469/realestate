@@ -224,11 +224,11 @@ const FormComponent = ({ onSubmit, buyMax, rentMax }) => {
             inputValue={city}
             onInputChange={handleCityChange}
             options={[
-              { label: "Bronx", value: "Bronx" },
-              { label: "Brooklyn", value: "Brooklyn" },
-              { label: "Manhattan", value: "Manhattan" },
-              { label: "Queens", value: "Queens" },
-              { label: "Staten Island", value: "Staten Island" },
+              { label: "Bronx, NY", value: "Bronx, NY" },
+              { label: "Brooklyn, NY", value: "Brooklyn, NY" },
+              { label: "Manhattan, NY", value: "Manhattan, NY" },
+              { label: "Queens, NY", value: "Queens, NY" },
+              { label: "Staten Island, NY", value: "Staten Island, NY" },
               // Add more cities as needed
             ]}
             getOptionLabel={(option) => option.label}

@@ -190,11 +190,11 @@ const UploadVideoForm = ({ handleSidebarClose }) => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
             >
-              <MenuItem value="Bronx">Bronx</MenuItem>
-              <MenuItem value="Brooklyn">Brooklyn</MenuItem>
-              <MenuItem value="Manhattan">Manhattan</MenuItem>
-              <MenuItem value="Queens">Queens</MenuItem>
-              <MenuItem value="Staten Island">Staten Island</MenuItem>
+              <MenuItem value="Bronx, NY">Bronx, NY</MenuItem>
+              <MenuItem value="Brooklyn, NY">Brooklyn, NY</MenuItem>
+              <MenuItem value="Manhattan, NY">Manhattan, NY</MenuItem>
+              <MenuItem value="Queens, NY">Queens, NY</MenuItem>
+              <MenuItem value="Staten Island, NY">Staten Island, NY</MenuItem>
             </Select>
           </FormControl>
         </Grid>
