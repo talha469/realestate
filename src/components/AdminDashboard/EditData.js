@@ -11,7 +11,7 @@ const EditData = () => {
 
   const getData = () => {
     axios
-      .get('https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData')
+      .get('https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData/fetchs3BucketDataAdmin')
       .then((result) => {
         const updatedVideos = result.data.map((video) => ({
           ...video,
@@ -32,7 +32,7 @@ const EditData = () => {
 
   const handleEdit = (videoID) => {
     if(window.confirm("Are you sure you want to update this record")){
-      axios.delete(`https://visheshmanwani-001-site1.itempurl.com/sold/${videoID}`)
+      axios.delete(`https://visheshmanwani-001-site1.itempurl.com/AdminDashboard/sold/${videoID}`)
       .then((result) => {
         if(result.status  === 200){
           toast.success('Record Updated');
@@ -42,6 +42,8 @@ const EditData = () => {
       .catch ((error) => {
         toast.error(error)
       }) 
+
+      getData();
   }
   };
 
