@@ -18,8 +18,6 @@ const Searchbar = ({ sendSearchedText, inputEmptyTrigger }) => {
   const handleBlur = () => {
     if (searchTerm === '') {
       inputEmptyTrigger(true);
-      // Handle the case when the input is empty
-      console.log('Input is empty');
     }
   };
 

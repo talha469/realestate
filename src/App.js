@@ -45,9 +45,6 @@ function App() {
       }
     }
 
-    console.log("Max Rent Price:", maxRentPrice);
-    console.log("Max Buy Price:", maxBuyPrice);
-
     setRentMax(maxRentPrice);
     setBuyMax(maxBuyPrice);
   };
@@ -82,25 +79,36 @@ function App() {
 
   const handleSendFormData = (formData) => {
     const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm";
+    debugger
+    let data = {};
+    if(selectedVideoData.length != 0){
+      data = {
+        Name: formData.name,
+        Email: formData.email,
+        Message: formData.message,
+        VideoID: selectedVideoData.videoID,
+        AWSPathKey: selectedVideoData.awsPathKey,
+        DealType: selectedVideoData.dealType,
+        Price: parseInt(selectedVideoData.price),
+        Bedrooms: selectedVideoData.bedrooms,
+        Bathrooms: parseInt(selectedVideoData.bathrooms),
+        Zip:
+          selectedVideoData?.zip !== null
+            ? selectedVideoData?.zip.toString()
+            : null,
+        City: selectedVideoData.city,
+        GoogleMapAddress: selectedVideoData.googleMapAddress,
+        IsPlaying: selectedVideoData.isPlaying,
+      };
+    }
 
-    const data = {
-      Name: formData.name,
-      Email: formData.email,
-      Message: formData.message,
-      VideoID: selectedVideoData.videoID,
-      AWSPathKey: selectedVideoData.awsPathKey,
-      DealType: selectedVideoData.dealType,
-      Price: parseInt(selectedVideoData.price),
-      Bedrooms: selectedVideoData.bedrooms,
-      Bathrooms: parseInt(selectedVideoData.bathrooms),
-      Zip:
-        selectedVideoData?.zip !== null
-          ? selectedVideoData?.zip.toString()
-          : null,
-      City: selectedVideoData.city,
-      GoogleMapAddress: selectedVideoData.googleMapAddress,
-      IsPlaying: selectedVideoData.isPlaying,
-    };
+    else{
+      data = {
+        Name: formData.name,
+        Email: formData.email,
+        Message: formData.message
+      }
+    }
 
     setTimeout(() => {
       setIsSendFormOpen(false);
@@ -148,7 +156,6 @@ function App() {
     axios
       .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
       .then((result) => {
-        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
@@ -196,6 +203,7 @@ function App() {
   };
 
   const hanldeSendFormClick = (data) => {
+    debugger
     setIsSendFormOpen(true);
     setSelectedVideoData(data);
   };
@@ -218,7 +226,6 @@ function App() {
     axios
       .post(url, search)
       .then((result) => {
-        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,

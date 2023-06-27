@@ -21,7 +21,6 @@ const Messages = () => {
     axios
       .get('https://visheshmanwani-001-site1.itempurl.com/ContactForm') // Replace with your API endpoint
       .then((response) => {
-        console.log(response.data)
         setData(response.data);
         setIsLoading(false);
       })

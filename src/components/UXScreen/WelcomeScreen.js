@@ -4,8 +4,6 @@ import './WelcomeScreen.css'; // Import CSS file for styling
 
 const WelcomeScreen = ({setIsUserInteracted}) => {
   const handleClick = () => {
-    // Perform the desired action here
-    console.log('Button clicked!');
     setIsUserInteracted(true);
   };
 

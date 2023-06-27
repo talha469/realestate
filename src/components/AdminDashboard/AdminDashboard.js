@@ -41,6 +41,7 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
   const [bedrooms, setBedrooms] = useState('');
   const [bathrooms, setBathrooms] = useState('');
   const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
 
   const handleVideoUpload = async (event) => {
     const file = event.target.files[0];
@@ -60,14 +61,12 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
   };
 
   const sendVideoData = (uploadVideoData) => {
-    console.log(uploadVideoData);
     uploadInProcess(true);
     // Send video data to your C# API   
     axios
       .post('https://visheshmanwani-001-site1.itempurl.com/AdminDashboard', uploadVideoData)
       .then((response) => {
         toast.success('Video uploaded successfully');
-        console.log('Video data sent successfully:', response.data);
         uploadInProcess(false);
         // Perform any desired actions or handle the response from the backend
       })
@@ -89,6 +88,7 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
         bedrooms: parseInt(bedrooms),
         bathrooms: parseInt(bathrooms),
         city: city,
+        address:address
       };
 
       sendVideoData(uploadVideoData);
@@ -200,6 +200,15 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
             </Select>
           </FormControl>
         </Grid>
+
+        <Grid item  xs={12}>
+        <TextField fullWidth
+          label="Address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        </Grid>
+
       </Grid>
       <Button
         variant="contained"
@@ -239,7 +248,6 @@ const AdminDashboard = ({uploadInProcess}) => {
 
   const handleEditData = () => {
     setCurrentComponent('editdata');
-    console.log(currentComponent)
     handleSidebarClose();
   };
 

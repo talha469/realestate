@@ -62,7 +62,23 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
           City :
           <span style={{ marginRight: "15px" }}> {videoDetails.city}</span>
         </Box>
+
+        <Box
+          sx={{
+            justifyContent: "center",
+            flexWrap: "nowrap",
+            marginLeft: "5vh",
+          }}
+        >
+          {videoDetails?.address &&(
+            <>
+          Address :
+          <span style={{ marginRight: "15px" }}> {videoDetails?.address}</span>
+          </>
+          )}
+         </Box>
       </Stack>
+
 
       <Box sx={{ paddingLeft: "5px", marginRight: "15px" }}>
         <IconButton onClick={handleSendFormClick}>
