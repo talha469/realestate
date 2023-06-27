@@ -117,7 +117,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
             sx={{
               height: 25,
               marginTop:'5px',
-              marginBottom: "15px",
+              marginBottom: "10px",
               color: "white",
               cursor: "pointer",
               position: "relative",

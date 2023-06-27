@@ -316,7 +316,7 @@ function App() {
               </div>
             }
           />
-          <Route path="/video/:id" element={<SearchVideo setVideosDetails={handleUserBasedVideos}/>} />
+          <Route path="/video/:id" element={<SearchVideo onSendFormClick={hanldeSendFormClick}/>} />
           <Route path="/admin" element={isScreenLoading ? (
                         <LoadingScreen />
                       ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />

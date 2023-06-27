@@ -5,8 +5,9 @@ import Header from "../header/Header";
 import Video from "./Video";
 import "./SearchVideo.css";
 import UserSpecificLastVideoMessage from "../UXScreen/UserSpecificLastVideoMessage";
+import SearchVideoRender from "./SearchVideoRender";
 
-const SearchVideo = () => {
+const SearchVideo = ({onSendFormClick}) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [videoDetails, setVideosDetails] = useState('');
@@ -46,10 +47,10 @@ const SearchVideo = () => {
         notRenderSearches={true}
       />
       <div className="app__videos">
-      <Video 
-        key={videoDetails?.videoID}
-        videoDetails={videoDetails}
-        isMuted={true}
+      <SearchVideoRender
+      key={videoDetails?.videoId}
+      videoDetails={videoDetails}
+      onSendFormClick={onSendFormClick}
       />
       <UserSpecificLastVideoMessage exploreClicked={handleExploreClicked}/>
       </div>

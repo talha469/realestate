@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Stack, Box } from '@mui/material';
 import Footer from '../footer/Footer';
-import { Typography, Button } from "@mui/material";
 import './Video.css';
 
 const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted }) => {
@@ -66,44 +65,6 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted
           controlsList="nodownload"
           src={videoDetails?.awsPathKey}
         ></video>
-        {!isPlaying && (
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '40%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'gray',
-              fontSize: '4rem',
-              cursor: 'pointer',
-              height: '50px',
-              width: '50px',
-              zIndex: 1,
-            }}
-            onClick={onVideoPress}
-          >
-            {/* <PlayArrow sx={{ height: '100px', width: '100px', opacity: '0.5' }} /> */}
-          </Box>
-        )}
-        {isPlaying && (
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              color: 'gray',
-              fontSize: '4rem',
-              cursor: 'pointer',
-              height: '50px',
-              width: '50px',
-              zIndex: 1,
-            }}
-            onClick={onVideoPress}
-          >
-            {/* <Pause sx={{ height: '100px', width: '100px', opacity: '0.5' }} /> */}
-          </Box>
-        )}
       </div>
       <Footer videoDetails={videoDetails} onSendFormClick={onSendFormClick} />
       {/* Thank you message and contact button for the last video */}
