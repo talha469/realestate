@@ -220,7 +220,7 @@ function App() {
 
   const HandleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
-    const url = `https://visheshmanwani-001-site1.itempurl.com//fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
+    const url = `https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
       search
     )}`;
     axios
