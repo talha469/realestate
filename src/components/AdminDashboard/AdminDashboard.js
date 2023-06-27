@@ -99,7 +99,7 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" >
       <FormControl fullWidth margin="normal">
         <input
           id="video-upload"
@@ -253,7 +253,7 @@ const AdminDashboard = ({uploadInProcess}) => {
 
   return (
     <div>
-      <AppBar position="static">
+      <AppBar position='sticky'>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleSidebarOpen}>
             <MenuIcon />

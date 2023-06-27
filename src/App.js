@@ -11,6 +11,7 @@ import LoadingScreen from "./components/UXScreen/LoadingScreen";
 import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
 import NoPropertyAvailable from "./components/UXScreen/NoPropertyAvailable";
 import WelcomeScreen from "./components/UXScreen/WelcomeScreen";
+import SearchVideo from "./components/video/SearchVideo";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
@@ -311,6 +312,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/video/:id" element={<SearchVideo />} />
           <Route path="/admin" element={isScreenLoading ? (
                         <LoadingScreen />
                       ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
