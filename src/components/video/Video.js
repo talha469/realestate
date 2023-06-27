@@ -4,7 +4,7 @@ import Footer from '../footer/Footer';
 import { Typography, Button } from "@mui/material";
 import './Video.css';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isNotMuted }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted }) => {
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -46,7 +46,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isNotMu
   }, [isPlaying]);
 
   const onVideoPress = () => {
-    {if(isNotMuted){
+    {if(isMuted){
       
     onVideoToggle(videoDetails.videoID);
     }}
@@ -59,7 +59,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isNotMu
         <video
           className="video__player"
           onClick={onVideoPress}
-          muted={isNotMuted}
+          muted={isMuted}
           ref={videoRef}
           loop
           // controls

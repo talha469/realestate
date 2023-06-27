@@ -99,7 +99,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
       </Stack>
 
 
-      <Box sx={{ paddingLeft: "5px", marginRight: "12px" }}>
+      <Box sx={{ paddingLeft: "14px", marginRight: "5px" }}>
         <IconButton onClick={handleSendFormClick}>
           <ReplyIcon
             sx={{
@@ -117,7 +117,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
             sx={{
               height: 25,
               marginTop:'5px',
-              marginBottom: "35px",
+              marginBottom: "15px",
               color: "white",
               cursor: "pointer",
               position: "relative",

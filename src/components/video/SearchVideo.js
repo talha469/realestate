@@ -49,7 +49,7 @@ const SearchVideo = () => {
       <Video 
         key={videoDetails?.videoID}
         videoDetails={videoDetails}
-        isNotMuted={true}
+        isMuted={true}
       />
       <UserSpecificLastVideoMessage exploreClicked={handleExploreClicked}/>
       </div>
