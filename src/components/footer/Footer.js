@@ -10,10 +10,10 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
   };
 
   const handleShareClick = () => {
-    const shareUrl = 'video/' + videoDetails.videoID; // The URL to share
-    const shareText = "Check out this video on The Proppy: "; // Optional share text
+    const shareUrl = 'https://theproppyuser.netlify.app/video/' + videoDetails.videoID; // The URL to share
+    const shareText = "Check out this video on The Proppy: \n"; // Optional share text
 
-    // Share on WhatsApp
+    // Share on WhatsApp // Share on WhatsApp
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(shareText + shareUrl)}`;
 
     // Share on Instagram
@@ -45,7 +45,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
         position: "relative",
         bottom: "22vh",
         color: "white",
-        alignItems: "space-around",
+        alignItems: "space-between",
         justifyContent: "center",
       }}
     >
@@ -104,7 +104,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
           <ReplyIcon
             sx={{
               height: 25,
-              marginBottom:'18px',
+              marginBottom:'1px',
               color: "white",
               cursor: "pointer",
               position:'relative',
@@ -117,11 +117,11 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
             sx={{
               height: 25,
               marginTop:'5px',
-              marginBottom: "25px",
+              marginBottom: "35px",
               color: "white",
               cursor: "pointer",
               position: "relative",
-              paddingRight: 2,
+              paddingRight: 1,
             }}
           />
         </IconButton>

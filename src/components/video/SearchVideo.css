@@ -1,0 +1,11 @@
+.app__videos{
+    position: relative;
+    height: 92vh;
+    overflow: scroll;
+    border-radius: 0px;
+    width: 100%;
+    max-width: '30%';
+    scroll-snap-type:y  mandatory;
+    background: black;
+    place-items: center;
+}

@@ -246,6 +246,10 @@ function App() {
     }
   };
 
+  const handleUserBasedVideos = (data) => {
+    setVideosDetails(data);
+  }
+
   return (
     <BrowserRouter>
       <div>
@@ -312,7 +316,7 @@ function App() {
               </div>
             }
           />
-          <Route path="/video/:id" element={<SearchVideo />} />
+          <Route path="/video/:id" element={<SearchVideo setVideosDetails={handleUserBasedVideos}/>} />
           <Route path="/admin" element={isScreenLoading ? (
                         <LoadingScreen />
                       ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
