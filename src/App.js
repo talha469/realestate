@@ -317,7 +317,7 @@ function App() {
             }
           />
           <Route path="/video/:id" element={<SearchVideo onSendFormClick={hanldeSendFormClick}/>} />
-          <Route path="/admin" element={isScreenLoading ? (
+          <Route path="/adminpanel" element={isScreenLoading ? (
                         <LoadingScreen />
                       ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
         </Routes>
