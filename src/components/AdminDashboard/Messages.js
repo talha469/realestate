@@ -132,6 +132,7 @@ const Messages = () => {
               <TableCell align="right">Email</TableCell>
               <TableCell align="right">Message</TableCell>
               <TableCell align="right">City</TableCell>
+              <TableCell align="right">Address</TableCell>
               <TableCell align="right">Bedroom</TableCell>
               <TableCell align="right">Bathroom</TableCell>
               <TableCell align="right">Deal</TableCell>
@@ -145,6 +146,7 @@ const Messages = () => {
                 <TableCell align="right">{item.email}</TableCell>
                 <TableCell align="right">{item.message}</TableCell>
                 <TableCell align="right">{item.city}</TableCell>
+                <TableCell align="right">{item.address}</TableCell>
                 <TableCell align="right">{item.bedrooms}</TableCell>
                 <TableCell align="right">{item.bathrooms}</TableCell>
                 <TableCell align="right">{item.dealType}</TableCell>

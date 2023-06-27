@@ -92,6 +92,7 @@ const EditData = () => {
                 <TableCell sx={{ fontWeight: 'bold' }}>Deal</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}>Price</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}>City</TableCell>
+                <TableCell sx={{ fontWeight: 'bold' }}>Address</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}>Sold</TableCell>
                 <TableCell sx={{ fontWeight: 'bold' }}></TableCell>
               </TableRow>
@@ -110,6 +111,7 @@ const EditData = () => {
                   <TableCell>{video.dealType}</TableCell>
                   <TableCell>{video?.price}</TableCell>
                   <TableCell>{video?.city}</TableCell>
+                  <TableCell>{video?.address}</TableCell>
                   <TableCell>{video?.isSold ? '✔️' : '❌'}</TableCell>
                   <TableCell>
                     <Button sx={{margin:'10px'}} variant="contained" color="primary" onClick={() => handleEdit(video.videoID)}>
