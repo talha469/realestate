@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
-import { Box } from '@mui/system';
+import React from 'react';
 import Stack from '@mui/material/Stack';
-import { Link } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import IconButton from '@mui/material/IconButton';
 import Searchbar from './Searchbar';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import AddHomeIcon from '@mui/icons-material/AddHome';
-import { colors } from '@mui/material';
-import FormComponent from './FormComponent';
 
 
 const Header = ({ onFilterClick,sendSearchedText, inputEmptyTrigger,onHomeIconClick }) => {
