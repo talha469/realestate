@@ -4,6 +4,8 @@ import { Stack, Box } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ReplyIcon from '@mui/icons-material/Reply';
 import ShareIcon from '@mui/icons-material/Share';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+
 const Footer = ({ videoDetails, onSendFormClick }) => {
   const handleSendFormClick = () => {
     onSendFormClick(videoDetails); // Pass videoDetails to the parent component
@@ -43,7 +45,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
       direction="row"
       sx={{
         position: "relative",
-        bottom: "20vh",
+        bottom: "19vh",
         color: "white",
         alignItems: "space-between",
         justifyContent: "center",
@@ -101,7 +103,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
 
       <Box sx={{ paddingLeft: "14px", marginRight: "5px" }}>
         <IconButton onClick={handleSendFormClick}>
-          <ReplyIcon
+          <EditNoteIcon
             sx={{
               height: 25,
               marginBottom:'1px',

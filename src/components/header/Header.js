@@ -33,7 +33,7 @@ const Header = ({
     >
       <HomeIcon
         onClick={handleHomeIconClick}
-        sx={{ height: 45, color: "white", cursor: "pointer", paddingLeft: 2 }}
+        sx={{ height: 45, color: "white", cursor: "pointer", paddingLeft: 2, touchAction: 'manipulation' }}
       />
       {!notRenderSearches && (
         <>
