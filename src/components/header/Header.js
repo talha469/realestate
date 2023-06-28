@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import Searchbar from "./Searchbar";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import Image from './filename.png'
+import { Margin } from "@mui/icons-material";
 const Header = ({
   onFilterClick,
   sendSearchedText,
@@ -36,7 +37,7 @@ const Header = ({
       />
       {!notRenderSearches && (
         <>
-          <img src={Image} alt="No property available" style={{ width: "40vh" }} />
+          <img src={Image} alt="No property available" style={{ width: "40vh", paddingtop:'5px' }} />
           {/* <Searchbar
             sendSearchedText={sendSearchedText}
             inputEmptyTrigger={inputEmptyTrigger}

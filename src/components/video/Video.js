@@ -59,7 +59,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
   return (
     <Stack sx={{ width: '100%'}}>
       <div className="video">
-        {isLoading ? (
+        {isLoading && (
           <Box
             display="flex"
             alignItems="center"
@@ -72,14 +72,15 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
               Loading...
             </Typography>
           </Box>
-        ) : null}
+        )}
         <video
           className={`video__player ${isLoading ? 'video__player--hidden' : ''}`}
           onClick={onVideoPress}
           muted={isMuted}
           ref={videoRef}
           loop
-          controlsList="nodownload"
+          controls={false}
+          playsInline
           src={videoDetails?.awsPathKey}
           onLoadedData={handleVideoLoad}
         ></video>
