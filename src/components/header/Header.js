@@ -4,7 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import IconButton from "@mui/material/IconButton";
 import Searchbar from "./Searchbar";
 import FilterListIcon from "@mui/icons-material/FilterList";
-
+import Image from './filename.png'
 const Header = ({
   onFilterClick,
   sendSearchedText,
@@ -36,10 +36,11 @@ const Header = ({
       />
       {!notRenderSearches && (
         <>
-          <Searchbar
+          <img src={Image} alt="No property available" style={{ width: "40vh" }} />
+          {/* <Searchbar
             sendSearchedText={sendSearchedText}
             inputEmptyTrigger={inputEmptyTrigger}
-          />
+          /> */}
 
           <IconButton onClick={onFilterClick}>
             <FilterListIcon

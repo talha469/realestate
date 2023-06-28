@@ -151,7 +151,7 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="bedrooms-label">Bedrooms</InputLabel>
+            <InputLabel id="bedrooms-label">Bedroom</InputLabel>
             <Select
               labelId="bedrooms-label"
               value={bedrooms}
@@ -168,7 +168,7 @@ const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth margin="normal">
-            <InputLabel id="bathrooms-label">Bathrooms</InputLabel>
+            <InputLabel id="bathrooms-label">Bathroom</InputLabel>
             <Select
               labelId="bathrooms-label"
               value={bathrooms}

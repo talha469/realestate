@@ -43,7 +43,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
       direction="row"
       sx={{
         position: "relative",
-        bottom: "22vh",
+        bottom: "20vh",
         color: "white",
         alignItems: "space-between",
         justifyContent: "center",

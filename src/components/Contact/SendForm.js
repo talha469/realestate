@@ -23,12 +23,11 @@ const StyledDialogTitle = styled(DialogTitle)`
 const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('Hi,\nI am interested in this property.');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     let timeout;
-    
     if (isSubmitted) {
       timeout = setTimeout(() => {
         setIsSubmitted(false);
@@ -70,6 +69,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
     city,
     googleMapAddress,
     isPlaying,
+    Address
   } = videoData;
 
   return (
@@ -133,10 +133,10 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
               {isVideoInformation == true ? (
                 <Typography sx={{ display: "flex", flexWrap: "wrap" }}>
                   <p style={{ marginRight: "1rem" }}>
-                    <strong>Bathrooms:</strong> {bathrooms}
+                    <strong>Bathroom:</strong> {bathrooms}
                   </p>
                   <p style={{ marginRight: "1rem" }}>
-                    <strong>Bedrooms:</strong> {bedrooms}
+                    <strong>Bedroom:</strong> {bedrooms}
                   </p>
                   <p style={{ marginRight: "1rem" }}>
                     <strong>City:</strong> {city}
@@ -148,7 +148,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
                     <strong>Price:</strong> ${price}
                   </p>
                   <p style={{ marginRight: "1rem" }}>
-                    <strong>Google Location:</strong> {googleMapAddress}
+                    <strong>Address:</strong> {Address}
                   </p>
                 </Typography>
               ) : null}

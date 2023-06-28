@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, CircularProgress, Typography } from '@mui/material';
 import Footer from '../footer/Footer';
 import './Video.css';
+import { color } from '@mui/system';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMuted }) => {
   const videoRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const options = {
@@ -45,30 +47,44 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted
   }, [isPlaying]);
 
   const onVideoPress = () => {
-    {if(isMuted){
-      
-    onVideoToggle(videoDetails.videoID);
-    }}
+    if (isMuted) {
+      onVideoToggle(videoDetails.videoID);
+    }
+  };
+
+  const handleVideoLoad = () => {
+    setIsLoading(false);
   };
 
   return (
-    <Stack sx={{width:'100%'}}>
+    <Stack sx={{ width: '100%'}}>
       <div className="video">
-
+        {isLoading ? (
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            height="100%"
+            color='white'
+          >
+            <CircularProgress />
+            <Typography variant="body1" color="white" align="center">
+              Loading...
+            </Typography>
+          </Box>
+        ) : null}
         <video
-          className="video__player"
+          className={`video__player ${isLoading ? 'video__player--hidden' : ''}`}
           onClick={onVideoPress}
           muted={isMuted}
           ref={videoRef}
           loop
-          // controls
           controlsList="nodownload"
           src={videoDetails?.awsPathKey}
+          onLoadedData={handleVideoLoad}
         ></video>
       </div>
       <Footer videoDetails={videoDetails} onSendFormClick={onSendFormClick} />
-      {/* Thank you message and contact button for the last video */}
-      
     </Stack>
   );
 };

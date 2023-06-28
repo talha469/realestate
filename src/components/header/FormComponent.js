@@ -169,7 +169,7 @@ const FormComponent = ({ onSubmit, buyMax, rentMax }) => {
 
         <Box mt={3} sx={{ width: "200" }}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
-            Bedrooms
+            Bedroom
           </Typography>
           <FormControl sx={{ minWidth: "200px" }}>
             <Select
@@ -200,7 +200,7 @@ const FormComponent = ({ onSubmit, buyMax, rentMax }) => {
 
         <Box mt={3} sx={{ width: "200" }}>
           <Typography sx={{ fontWeight: "bold", paddingBottom: "4px" }}>
-            Bathrooms
+            Bathroom
           </Typography>
           <FormControl sx={{ minWidth: "200px" }}>
             <Select

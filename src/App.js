@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
 import Header from "./components/header/Header";
 import Video from "./components/video/Video";
 import axios from "axios";
 import FormComponent from "./components/header/FormComponent";
 import SendForm from "./components/Contact/SendForm";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AdminDashboard from "./components/AdminDashboard/AdminDashboard";
 import LoadingScreen from "./components/UXScreen/LoadingScreen";
 import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
@@ -25,6 +25,8 @@ function App() {
   const [isWelcomeScreen, setIsWelcomeScreen] = useState(false);
   const [rentMax, setRentMax] = useState(0);
   const [buyMax, setBuyMax] = useState(0);
+
+  const observerRef = useRef(null);
 
   const handleVideoDetails = (data) => {
     setVideosDetails(data);
@@ -73,16 +75,14 @@ function App() {
   }, []);
 
   const handleIsSendFormOpen = () => {
-    debugger;
     setIsSendFormOpen(false);
     setIsVideoInformation(true);
   };
 
   const handleSendFormData = (formData) => {
     const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm";
-    debugger
     let data = {};
-    if(selectedVideoData.length != 0){
+    if (selectedVideoData.length !== 0) {
       data = {
         Name: formData.name,
         Email: formData.email,
@@ -101,14 +101,12 @@ function App() {
         GoogleMapAddress: selectedVideoData.googleMapAddress,
         IsPlaying: selectedVideoData.isPlaying,
       };
-    }
-
-    else{
+    } else {
       data = {
         Name: formData.name,
         Email: formData.email,
-        Message: formData.message
-      }
+        Message: formData.message,
+      };
     }
 
     setTimeout(() => {
@@ -126,7 +124,8 @@ function App() {
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    const url = "https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
+    const url =
+      "https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
     const data = {
       Bedrooms: requestData.bedrooms,
       Bathrooms: requestData.bathrooms,
@@ -195,31 +194,25 @@ function App() {
     setIsFormOpen(!isFormOpen);
   };
 
-  const handleHomeIconClick = (clicked) => {
-    debugger;
-    if (clicked) {
-      getData();
-      setIsFormOpen(false);
-    }
+  const handleHomeIconClick = () => {
+    getData();
+    setIsFormOpen(false);
   };
 
-  const hanldeSendFormClick = (data) => {
-    debugger
+  const handleSendFormClick = (data) => {
     setIsSendFormOpen(true);
     setSelectedVideoData(data);
   };
 
-  const handleUploadInProcess= (data) => {
-    debugger
-    if(data){
-     setIsScreenLoading(true);
-    }
-    else{
+  const handleUploadInProcess = (data) => {
+    if (data) {
+      setIsScreenLoading(true);
+    } else {
       setIsScreenLoading(false);
     }
-  } 
+  };
 
-  const HandleSearchedTextFilter = (search) => {
+  const handleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
     const url = `https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData/searchFilteredData?Requiredfilters=${encodeURIComponent(
       search
@@ -240,7 +233,7 @@ function App() {
       });
   };
 
-  const inputtrigger = (data) => {
+  const inputTrigger = (data) => {
     if (data) {
       getData();
     }
@@ -248,7 +241,30 @@ function App() {
 
   const handleUserBasedVideos = (data) => {
     setVideosDetails(data);
-  }
+  };
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const videoID = entry.target.getAttribute("data-videoid");
+            if (videoID === currentVideoID) {
+              setIsSendFormOpen(false);
+            }
+          }
+        });
+      },
+      { threshold: 1.0 }
+    );
+
+    const videos = document.querySelectorAll(".app__video");
+    videos.forEach((video) => observerRef.current.observe(video));
+
+    return () => {
+      observerRef.current.disconnect();
+    };
+  }, [currentVideoID]);
 
   return (
     <BrowserRouter>
@@ -260,8 +276,8 @@ function App() {
               <div className="App">
                 <Header
                   onFilterClick={handleFilterClick}
-                  sendSearchedText={HandleSearchedTextFilter}
-                  inputEmptyTrigger={inputtrigger}
+                  sendSearchedText={handleSearchedTextFilter}
+                  inputEmptyTrigger={inputTrigger}
                   onHomeIconClick={handleHomeIconClick}
                 />
                 <Routes>
@@ -284,23 +300,40 @@ function App() {
                             />
                           ) : (
                             <>
-                              {videosDetails && videosDetails.length > 0 ? (
-                                videosDetails.map((item, index) => (
+                              {videosDetails &&
+                              videosDetails.length > 0 &&
+                              videosDetails
+                                .slice(0, 2)
+                                .map((item, index) => (
                                   <Video
                                     key={item?.videoID}
                                     videoDetails={item}
                                     isPlaying={item.isPlaying}
                                     onVideoToggle={handleVideoToggle}
-                                    onSendFormClick={hanldeSendFormClick}
-                                    isMuted={index === 0}
+                                    onSendFormClick={handleSendFormClick}
                                     isLastVideo={
                                       index === videosDetails.length - 1
                                     }
+                                    ref={observerRef}
+                                    data-videoid={item?.videoID}
                                   />
-                                ))
-                              ) : (
-                                <NoPropertyAvailable />
-                              )}
+                                ))}
+                              {videosDetails &&
+                                videosDetails.length > 3 &&
+                                videosDetails
+                                  .slice(2)
+                                  .map((item, index) => (
+                                    <Video
+                                      key={item?.videoID}
+                                      videoDetails={item}
+                                      isPlaying={item.isPlaying}
+                                      onVideoToggle={handleVideoToggle}
+                                      onSendFormClick={handleSendFormClick}
+                                      isLastVideo={
+                                        index === videosDetails.length - 4
+                                      }
+                                    />
+                                  ))}
                               {videosDetails && videosDetails.length > 0 && (
                                 <LastVideoMessage
                                   onContactAdmin={handleContactAdmin}
@@ -316,10 +349,20 @@ function App() {
               </div>
             }
           />
-          <Route path="/video/:id" element={<SearchVideo onSendFormClick={hanldeSendFormClick}/>} />
-          <Route path="/adminpanel" element={isScreenLoading ? (
-                        <LoadingScreen />
-                      ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
+          <Route
+            path="/video/:id"
+            element={<SearchVideo onSendFormClick={handleSendFormClick} />}
+          />
+          <Route
+            path="/adminpanel"
+            element={
+              isScreenLoading ? (
+                <LoadingScreen />
+              ) : (
+                <AdminDashboard uploadInProcess={handleUploadInProcess} />
+              )
+            }
+          />
         </Routes>
 
         {isSendFormOpen && (
