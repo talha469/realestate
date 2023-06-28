@@ -69,7 +69,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
     city,
     googleMapAddress,
     isPlaying,
-    Address
+    address
   } = videoData;
 
   return (
@@ -148,7 +148,7 @@ const SendForm = ({ onClose, onSubmit, videoData, isVideoInformation }) => {
                     <strong>Price:</strong> ${price}
                   </p>
                   <p style={{ marginRight: "1rem" }}>
-                    <strong>Address:</strong> {Address}
+                    <strong>Address:</strong> {address}
                   </p>
                 </Typography>
               ) : null}

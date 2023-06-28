@@ -79,7 +79,8 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
           muted={isMuted}
           ref={videoRef}
           loop
-          controls={false}
+          controls={true}
+          controlsList='nodownload'
           playsInline
           src={videoDetails?.awsPathKey}
           onLoadedData={handleVideoLoad}
