@@ -18,7 +18,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          videoRef.current?.play();
+          //videoRef.current?.play();
         } else {
           videoRef.current?.pause();
         }
@@ -37,14 +37,6 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
       }
     };
   }, []);
-
-  useEffect(() => {
-    if (isPlaying) {
-      videoRef.current?.play();
-    } else if (!isPlaying) {
-      videoRef.current?.pause();
-    }
-  }, [isPlaying]);
 
   const onVideoPress = () => {
     if (isMuted) {
