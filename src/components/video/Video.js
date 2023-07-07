@@ -1,12 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Stack, Box, CircularProgress, Typography } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 import Footer from '../footer/Footer';
 import './Video.css';
-import { color } from '@mui/system';
 
-const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMuted }) => {
+const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick,isMuted }) => {
   const videoRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const options = {
@@ -18,7 +16,7 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-          //videoRef.current?.play();
+          videoRef.current?.play();
         } else {
           videoRef.current?.pause();
         }
@@ -38,47 +36,39 @@ const Video = ({ videoDetails, isPlaying, onVideoToggle, onSendFormClick, isMute
     };
   }, []);
 
-  const onVideoPress = () => {
-    if (isMuted) {
-      onVideoToggle(videoDetails.videoID);
+  useEffect(() => {
+    if (isPlaying) {
+      videoRef.current?.play();
+    } else if (!isPlaying) {
+      videoRef.current?.pause();
     }
-  };
+  }, [isPlaying]);
 
-  const handleVideoLoad = () => {
-    setIsLoading(false);
+  const onVideoPress = () => {
+    {if(isMuted){
+      
+    onVideoToggle(videoDetails.videoID);
+    }}
   };
 
   return (
-    <Stack sx={{ width: '100%'}}>
+    <Stack sx={{width:'100%'}}>
       <div className="video">
-        {isLoading && (
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            height="100%"
-            color='white'
-          >
-            <CircularProgress />
-            <Typography variant="body1" color="white" align="center">
-              Loading...
-            </Typography>
-          </Box>
-        )}
+
         <video
-          className={`video__player ${isLoading ? 'video__player--hidden' : ''}`}
+          className="video__player"
           onClick={onVideoPress}
           muted={isMuted}
           ref={videoRef}
           loop
-          controls={true}
-          controlsList='nodownload'
-          playsInline
+          controls
+          controlsList="nodownload"
           src={videoDetails?.awsPathKey}
-          onLoadedData={handleVideoLoad}
+          playsInline
         ></video>
       </div>
       <Footer videoDetails={videoDetails} onSendFormClick={onSendFormClick} />
+      
     </Stack>
   );
 };

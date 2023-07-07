@@ -23,6 +23,8 @@ function App() {
   const [currentVideoID, setCurrentVideoID] = useState(null);
   const [isScreenLoading, setIsScreenLoading] = useState(false);
   const [isWelcomeScreen, setIsWelcomeScreen] = useState(false);
+  const [isfilterWelcome, setIsfilterWelcome] = useState(false);
+  const [ishomeWelcome, setIshomeWelcome] = useState(false);
   const [rentMax, setRentMax] = useState(0);
   const [buyMax, setBuyMax] = useState(0);
 
@@ -53,10 +55,14 @@ function App() {
   const handleFormSubmit = (data) => {
     getFilteredVideos(data);
     setIsFormOpen(false);
+    setIsWelcomeScreen(true);
+    setIsfilterWelcome(true);
   };
 
   const handleIsUserInteracted = () => {
     setIsWelcomeScreen(false);
+    setIsfilterWelcome(false);
+    setIshomeWelcome(false);
   };
 
   const handleContactAdmin = () => {
@@ -196,10 +202,11 @@ function App() {
   };
 
   const handleHomeIconClick = (clicked) => {
-    debugger;
     if (clicked) {
       getData();
       setIsFormOpen(false);
+      setIsWelcomeScreen(true);
+      setIshomeWelcome(true);
     }
   };
 
@@ -281,6 +288,8 @@ function App() {
                           {isWelcomeScreen ? (
                             <WelcomeScreen
                               setIsUserInteracted={handleIsUserInteracted}
+                              isfilterWelcome={isfilterWelcome}
+                              isHomeIconWelcome={ishomeWelcome}
                             />
                           ) : (
                             <>
