@@ -12,6 +12,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
+  FormHelperText
 } from "@mui/material";
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -62,6 +63,10 @@ const VideosEndForm = ({
     // if (!isEmailValid) {
     //   return;
     // }
+
+    if(!role){
+        return
+    }
     debugger
     const formData = {
       name,
@@ -135,6 +140,9 @@ const VideosEndForm = ({
                   />
                 
                 </RadioGroup>
+                {!role && (
+                  <FormHelperText error>Please select a role</FormHelperText>
+                )}
               </FormControl>
 
               {role === "Other" && ( // Render the text field if role is "Other"

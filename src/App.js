@@ -86,9 +86,9 @@ function App() {
 
   const handleSendFormData = (formData) => {
     const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm";
-    debugger
+    debugger;
     let data = {};
-    if(selectedVideoData.length != 0){
+    if (selectedVideoData.length != 0) {
       data = {
         Name: formData.name,
         Email: formData.email,
@@ -122,20 +122,20 @@ function App() {
       });
   };
 
-  
   const handleEndVideosFormData = (formData) => {
-    debugger
-    const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm/EndVideosContactForm";
-    debugger
+    debugger;
+    const url =
+      "https://visheshmanwani-001-site1.itempurl.com/ContactForm/EndVideosContactForm";
+    debugger;
     let data = {};
-      data = {
-        email:formData.followUpEmail,
-        additionalComments: formData.additionalComments,
-        rating:formData.experienceRating,
-        recommendation: formData.recommendation,
-        role:formData.role,
-        suggestions: formData.suggestions
-      };
+    data = {
+      email: formData.followUpEmail,
+      additionalComments: formData.additionalComments,
+      rating: formData.experienceRating,
+      recommendation: formData.recommendation,
+      role: formData.role,
+      suggestions: formData.suggestions,
+    };
 
     setTimeout(() => {
       setIsSendFormOpen(false);
@@ -144,7 +144,7 @@ function App() {
     axios
       .post(url, data)
       .then((result) => {
-        debugger
+        debugger;
       })
       .catch((error) => {
         console.log(error);
@@ -152,10 +152,10 @@ function App() {
       });
   };
 
-
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
-    const url = "https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
+    const url =
+      "https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData";
     const data = {
       Bedrooms: requestData.bedrooms,
       Bathrooms: requestData.bathrooms,
@@ -186,7 +186,7 @@ function App() {
     axios
       .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
       .then((result) => {
-        console.log(result)
+        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
@@ -235,20 +235,19 @@ function App() {
   };
 
   const hanldeSendFormClick = (data) => {
-    debugger
+    debugger;
     setIsSendFormOpen(true);
     setSelectedVideoData(data);
   };
 
-  const handleUploadInProcess= (data) => {
-    debugger
-    if(data){
-     setIsScreenLoading(true);
-    }
-    else{
+  const handleUploadInProcess = (data) => {
+    debugger;
+    if (data) {
+      setIsScreenLoading(true);
+    } else {
       setIsScreenLoading(false);
     }
-  } 
+  };
 
   const HandleSearchedTextFilter = (search) => {
     setIsScreenLoading(true);
@@ -279,7 +278,7 @@ function App() {
 
   const handleUserBasedVideos = (data) => {
     setVideosDetails(data);
-  }
+  };
 
   return (
     <BrowserRouter>
@@ -348,33 +347,39 @@ function App() {
               </div>
             }
           />
-          <Route path="/video/:id" element={<SearchVideo onSendFormClick={hanldeSendFormClick}/>} />
-          <Route path="/adminpanel" element={isScreenLoading ? (
-                        <LoadingScreen />
-                      ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
+          <Route
+            path="/video/:id"
+            element={<SearchVideo onSendFormClick={hanldeSendFormClick} />}
+          />
+          <Route
+            path="/adminpanel"
+            element={
+              isScreenLoading ? (
+                <LoadingScreen />
+              ) : (
+                <AdminDashboard uploadInProcess={handleUploadInProcess} />
+              )
+            }
+          />
         </Routes>
 
-         {isSendFormOpen && selectedVideoData &&(
+        {isSendFormOpen && (
           <div className="app__fullscreen">
-            <SendForm
-              onClose={handleIsSendFormOpen}
-              onSubmit={handleSendFormData}
-              videoData={selectedVideoData}
-              isVideoInformation={isVideoInformation}
-            />
+            {isVideoInformation ? (
+              <SendForm
+                onClose={handleIsSendFormOpen}
+                onSubmit={handleSendFormData}
+                videoData={selectedVideoData}
+                isVideoInformation={isVideoInformation}
+              />
+            ) : (
+              <VideosEndForm
+                onClose={handleIsSendFormOpen}
+                onSubmit={handleEndVideosFormData}
+              />
+            )}
           </div>
         )}
-
-        {
-        isSendFormOpen  &&(
-          <div className="app__fullscreen">
-            <VideosEndForm
-              onClose={handleIsSendFormOpen}
-              onSubmit={handleEndVideosFormData}
-            />
-          </div>
-        )}
-
       </div>
     </BrowserRouter>
   );
