@@ -11,9 +11,11 @@ const Messages = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState([]);
+  const [EndVideoContactdata, setEndVideoContactData] = useState([]);
 
   useEffect(() => {
     fetchData();
+    fetchEndVideContactData();
   }, []);
 
   const fetchData = () => {
@@ -48,12 +50,46 @@ const Messages = () => {
       });
   };
 
+  const fetchEndVideContactData = () => {
+    setIsLoading(true);
+    axios
+      .get('https://visheshmanwani-001-site1.itempurl.com/ContactForm/EndVideoContact') // Replace with your API endpoint
+      .then((response) => {
+        setEndVideoContactData(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+        setIsError(true);
+      });
+  };
+
+  const handleEndVideoConatcDownload = () => {
+    setIsLoading(true);
+    axios
+      .get('https://visheshmanwani-001-site1.itempurl.com/ContactForm/EndVideoContact') // Replace with your API endpoint
+      .then((response) => {
+        // Convert response data to Excel file and download
+        downloadExcelFile(response.data);
+        setIsLoading(false);
+        setIsSuccess(true);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+        setIsError(true);
+      });
+  };
+
   const downloadExcelFile = (data) => {
     // Create a new workbook
     const workbook = XLSX.utils.book_new();
 
-    // Convert data to a worksheet
-    const worksheet = XLSX.utils.json_to_sheet(data);
+    const dataWithoutId = data.map(({ id, ...rest }) => rest);
+
+  // Convert data to a worksheet
+  const worksheet = XLSX.utils.json_to_sheet(dataWithoutId);
 
     // Add the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
@@ -150,6 +186,50 @@ const Messages = () => {
                 <TableCell align="right">{item.bedrooms}</TableCell>
                 <TableCell align="right">{item.bathrooms}</TableCell>
                 <TableCell align="right">{item.dealType}</TableCell>
+                {/* Add more table cells based on your SQL data structure */}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Button sx={{marginTop:'20px'}}
+        style={{
+          backgroundColor: '#3f51b5',
+          color: '#fff',
+          '&:hover': {
+            backgroundColor: '#1a237e',
+          },
+        }}
+        variant="contained"
+        startIcon={<CloudDownload />}
+        onClick={handleEndVideoConatcDownload}
+        disabled={isLoading}
+      >
+        Download
+      </Button>
+      <TableContainer component={Paper} style={{ marginRight: '3rem', marginTop:'3rem'}}>
+        <Table size="small" aria-label="Messages Table" >
+          <TableHead>
+            <TableRow>
+              <TableCell align="right">Role</TableCell>
+              <TableCell align="right">Experience</TableCell>
+              <TableCell align="right">Recomended</TableCell>
+              <TableCell align="right">Improvements</TableCell>
+              <TableCell align="right">Thoughts</TableCell>
+              <TableCell align="right">email</TableCell>
+              {/* Add more table headers based on your SQL data structure */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {EndVideoContactdata.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell align="right">{item.role}</TableCell>
+                <TableCell align="right">{item.rating}</TableCell>
+                <TableCell align="right">{item.recommendation}</TableCell>
+                <TableCell align="right">{item.suggestions}</TableCell>
+                <TableCell align="right">{item.additionalComments}</TableCell>
+                <TableCell align="right">{item.email}</TableCell>
                 {/* Add more table cells based on your SQL data structure */}
               </TableRow>
             ))}

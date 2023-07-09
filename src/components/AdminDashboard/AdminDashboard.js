@@ -32,7 +32,10 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MessageIcon from '@mui/icons-material/Message';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
+import MovieIcon from '@mui/icons-material/Movie';
 import EditData from './EditData';
+import Analytics from './Analytics';
 
 const UploadVideoForm = ({ handleSidebarClose, uploadInProcess }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -246,6 +249,11 @@ const AdminDashboard = ({uploadInProcess}) => {
     handleSidebarClose();
   };
 
+  const handleOpenAnalytics = () => {
+    setCurrentComponent('analytics');
+    handleSidebarClose();
+  };
+
   const handleEditData = () => {
     setCurrentComponent('editdata');
     handleSidebarClose();
@@ -280,15 +288,21 @@ const AdminDashboard = ({uploadInProcess}) => {
           </ListItem>
         <ListItem button onClick={handleEditData}>
             <ListItemIcon>
-              <MessageIcon />
+              <MovieIcon />
             </ListItemIcon>
             <ListItemText primary="Edit Videos" />
+          </ListItem>
+          <ListItem button onClick={handleOpenAnalytics}>
+            <ListItemIcon>
+              <AutoGraphIcon />
+            </ListItemIcon>
+            <ListItemText primary="Analytics" />
           </ListItem>
         </List>
       </Drawer>
       {currentComponent === 'upload' ? (
         <UploadVideoForm handleSidebarClose={handleSidebarClose} uploadInProcess={uploadInProcess} />
-      ) : currentComponent === 'editdata' ? <EditData/> :(
+      ) : currentComponent === 'editdata' ? <EditData/> : currentComponent === 'analytics' ? <Analytics/> : (
         <Messages />
       )}
     </div>

@@ -12,6 +12,7 @@ import LastVideoMessage from "./components/UXScreen/LastVideoMessage";
 import NoPropertyAvailable from "./components/UXScreen/NoPropertyAvailable";
 import WelcomeScreen from "./components/UXScreen/WelcomeScreen";
 import SearchVideo from "./components/video/SearchVideo";
+import VideosEndForm from "./components/Contact/VideoEndForm";
 
 function App() {
   const [videosDetails, setVideosDetails] = useState([]);
@@ -79,7 +80,6 @@ function App() {
   }, []);
 
   const handleIsSendFormOpen = () => {
-    debugger;
     setIsSendFormOpen(false);
     setIsVideoInformation(true);
   };
@@ -109,14 +109,6 @@ function App() {
       };
     }
 
-    else{
-      data = {
-        Name: formData.name,
-        Email: formData.email,
-        Message: formData.message
-      }
-    }
-
     setTimeout(() => {
       setIsSendFormOpen(false);
     }, 3500);
@@ -129,6 +121,37 @@ function App() {
         // Handle the error or log it to understand the issue
       });
   };
+
+  
+  const handleEndVideosFormData = (formData) => {
+    debugger
+    const url = "https://visheshmanwani-001-site1.itempurl.com/ContactForm/EndVideosContactForm";
+    debugger
+    let data = {};
+      data = {
+        email:formData.followUpEmail,
+        additionalComments: formData.additionalComments,
+        rating:formData.experienceRating,
+        recommendation: formData.recommendation,
+        role:formData.role,
+        suggestions: formData.suggestions
+      };
+
+    setTimeout(() => {
+      setIsSendFormOpen(false);
+    }, 3500);
+
+    axios
+      .post(url, data)
+      .then((result) => {
+        debugger
+      })
+      .catch((error) => {
+        console.log(error);
+        // Handle the error or log it to understand the issue
+      });
+  };
+
 
   const getFilteredVideos = (requestData) => {
     setIsScreenLoading(true);
@@ -163,6 +186,7 @@ function App() {
     axios
       .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
       .then((result) => {
+        console.log(result)
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,
@@ -330,7 +354,7 @@ function App() {
                       ) : (<AdminDashboard uploadInProcess={handleUploadInProcess}/>)} />
         </Routes>
 
-        {isSendFormOpen && (
+         {isSendFormOpen && selectedVideoData &&(
           <div className="app__fullscreen">
             <SendForm
               onClose={handleIsSendFormOpen}
@@ -340,6 +364,17 @@ function App() {
             />
           </div>
         )}
+
+        {
+        isSendFormOpen  &&(
+          <div className="app__fullscreen">
+            <VideosEndForm
+              onClose={handleIsSendFormOpen}
+              onSubmit={handleEndVideosFormData}
+            />
+          </div>
+        )}
+
       </div>
     </BrowserRouter>
   );

@@ -17,7 +17,7 @@ const WelcomeScreen = ({ setIsUserInteracted, isfilterWelcome, isHomeIconWelcome
         </h3>
 
         <p style={{ marginTop: '12px', padding: '3px', fontSize: '6px' }}>
-          <img src={Image} alt="filterWelcome" style={{ width: '10%' }} />
+          <img src={Image} alt="filterWelcome" style={{ width: '7%' }} />
         </p>
         <Button
           variant="contained"
