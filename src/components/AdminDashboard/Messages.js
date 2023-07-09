@@ -214,7 +214,7 @@ const Messages = () => {
             <TableRow>
               <TableCell align="right">Role</TableCell>
               <TableCell align="right">Experience</TableCell>
-              <TableCell align="right">Recomended</TableCell>
+              <TableCell align="right">Recommended</TableCell>
               <TableCell align="right">Improvements</TableCell>
               <TableCell align="right">Thoughts</TableCell>
               <TableCell align="right">email</TableCell>
