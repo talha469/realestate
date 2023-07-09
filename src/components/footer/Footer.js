@@ -12,7 +12,7 @@ const Footer = ({ videoDetails, onSendFormClick }) => {
   };
 
   const handleShareClick = () => {
-    const shareUrl = 'https://theproppyuser.netlify.app/video/' + videoDetails.videoID; // The URL to share
+    const shareUrl = 'https://theproppy.com/video/' + videoDetails.videoID; // The URL to share
     const shareText = "Check out this video on The Proppy: \n"; // Optional share text
 
     // Share on WhatsApp // Share on WhatsApp
