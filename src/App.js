@@ -182,6 +182,7 @@ function App() {
   };
 
   const getData = () => {
+    debugger
     setIsScreenLoading(true);
     axios
       .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
@@ -200,8 +201,10 @@ function App() {
   };
 
   useEffect(() => {
-    getData();
-    setIsWelcomeScreen(true);
+    if (window.location.pathname !== "/adminpanels") {
+      getData();
+      setIsWelcomeScreen(true);
+    }
   }, []);
 
   const handleVideoToggle = (videoID) => {
@@ -352,7 +355,7 @@ function App() {
             element={<SearchVideo onSendFormClick={hanldeSendFormClick} />}
           />
           <Route
-            path="/adminpanel"
+            path="/adminpanels"
             element={
               isScreenLoading ? (
                 <LoadingScreen />

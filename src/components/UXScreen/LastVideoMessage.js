@@ -32,10 +32,10 @@ const LastVideoMessage = ({onContactAdmin}) => {
       >
         <img src={Image} alt="No property available" style={{ width: "40vh" }} />
         <Typography variant="h4" gutterBottom>
-          Thank you for watching!
+          We'd Love to Hear  from You!
         </Typography>
         <Typography variant="body1" gutterBottom>
-          For further assistance, please contact us:
+          Please provide your valuable feeback by clicking on the button below
         </Typography>
         <Button 
           variant="contained"
@@ -44,7 +44,7 @@ const LastVideoMessage = ({onContactAdmin}) => {
           startIcon={<Send sx={{ transform: 'rotate(-45deg)' }}/>}
           sx={{ width: '150px', alignContent:'center' }}
         >
-          Contact
+          Feedback
         </Button>
       </Stack>
     </div>
