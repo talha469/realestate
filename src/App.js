@@ -187,7 +187,6 @@ function App() {
     axios
       .get("https://visheshmanwani-001-site1.itempurl.com/fetchs3BucketData")
       .then((result) => {
-        console.log(result);
         const updatedVideos = result.data.map((video) => ({
           ...video,
           isPlaying: false,

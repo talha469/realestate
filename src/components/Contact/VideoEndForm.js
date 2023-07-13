@@ -12,7 +12,7 @@ import {
   FormControlLabel,
   Radio,
   RadioGroup,
-  FormHelperText
+  FormHelperText,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
@@ -25,10 +25,7 @@ const StyledDialogTitle = styled(DialogTitle)`
   align-items: center;
 `;
 
-const VideosEndForm = ({
-  onClose,
-  onSubmit
-}) => {
+const VideosEndForm = ({ onClose, onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(
@@ -36,7 +33,7 @@ const VideosEndForm = ({
   );
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [role, setRole] = useState("");
-  const [otherRole, setOtherRole] = useState(""); 
+  const [otherRole, setOtherRole] = useState("");
   const [experienceRating, setExperienceRating] = useState("");
   const [recommendation, setRecommendation] = useState("");
   const [suggestions, setSuggestions] = useState("");
@@ -58,16 +55,10 @@ const VideosEndForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validate email address
-    // const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    // if (!isEmailValid) {
-    //   return;
-    // }
-
-    if(!role){
-        return
+    if (!role) {
+      return;
     }
-    debugger
+    debugger;
     const formData = {
       name,
       email,
@@ -80,7 +71,7 @@ const VideosEndForm = ({
       followUpEmail,
     };
 
-    debugger
+    debugger;
     onSubmit(formData);
     setName("");
     setEmail("");
@@ -138,7 +129,6 @@ const VideosEndForm = ({
                     control={<Radio />}
                     label="Other"
                   />
-                
                 </RadioGroup>
                 {!role && (
                   <FormHelperText error>Please select a role</FormHelperText>
@@ -207,8 +197,11 @@ const VideosEndForm = ({
                 </RadioGroup>
               </FormControl>
 
+              <Typography sx={{ marginTop: "1rem" }}>
+                Any new features or improvements you would like to suggest?
+              </Typography>
+
               <TextField
-                label="Any new features or improvements you would like to suggest?"
                 variant="outlined"
                 value={suggestions}
                 onChange={(e) => setSuggestions(e.target.value)}
@@ -219,8 +212,10 @@ const VideosEndForm = ({
                 tyle={{ display: "block" }}
               />
 
+              <Typography sx={{ marginTop: "1rem" }}>
+                Is there anything else you would like to share with us?
+              </Typography>
               <TextField
-                label="Is there anything else you would like to share with us? (Optional)"
                 variant="outlined"
                 value={additionalComments}
                 onChange={(e) => setAdditionalComments(e.target.value)}
@@ -230,8 +225,10 @@ const VideosEndForm = ({
                 margin="normal"
               />
 
+              <Typography sx={{ marginTop: "1rem" }}>
+              Please enter your email address if you would like us to follow up
+              </Typography>
               <TextField
-                label="Please enter your email address if you would like us to follow up"
                 variant="outlined"
                 value={followUpEmail}
                 onChange={(e) => setFollowUpEmail(e.target.value)}

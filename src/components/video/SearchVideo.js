@@ -19,7 +19,6 @@ const SearchVideo = ({onSendFormClick}) => {
       )
       .then((result) => {
         const updatedVideos = result.data;
-        console.log(updatedVideos);
         setVideosDetails(updatedVideos);
       })
       .catch((error) => {
