@@ -92,7 +92,6 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
       ) : (
         <Dialog open={true} onClose={onClose}>
           <StyledDialogTitle>
-            Contact us
             <IconButton
               edge="end"
               color="inherit"
