@@ -56,7 +56,7 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!role || !recommendation || !suggestions ||!experienceRating) {
+    if (!role || !recommendation || !suggestions || !experienceRating) {
       return;
     }
 
@@ -104,15 +104,11 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
           </StyledDialogTitle>
           <DialogContent>
             <form onSubmit={handleSubmit}>
-              
-              <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem" ,fontSize: "1.2rem" }}>
-                Are you a:
-                </Box>
-                {!role && (
-                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
-                )}
-              </Stack>
+
+              <div style={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+              Are you a:
+                {!role && <span style={{ color: "red" }}>*</span>}
+              </div>
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
                   row
@@ -149,15 +145,11 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 />
               )}
 
-              <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem" , fontSize: "1.2rem"}}>
-                On a scale of 1 to 5, how would you rate your apartment finding
-                experience through short videos on Proppy?
-                </Box>
-                {!experienceRating && (
-                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
-                )}
-              </Stack>
+              <div style={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+              On a scale of 1 to 5, how would you rate your apartment
+                  finding experience through short videos on Proppy?
+                {!experienceRating && <span style={{ color: "red" }}>*</span>}
+              </div>
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
                   row
@@ -180,15 +172,11 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 </RadioGroup>
               </FormControl>
 
-              <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
-                  Would you recommend Proppy to your friends who are looking for
-                  apartments?
-                </Box>
-                {!recommendation && (
-                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
-                )}
-              </Stack>
+              <div style={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+                Would you recommend Proppy to your friends who are looking for
+                apartments?{" "}
+                {!recommendation && <span style={{ color: "red" }}>*</span>}
+              </div>
 
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
@@ -211,14 +199,10 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 </RadioGroup>
               </FormControl>
 
-              <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
-                Any new features or improvements you would like to suggest? 
-                </Box>
-                {!suggestions && (
-                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
-                )}
-              </Stack>
+              <div style={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+              Any new features or improvements you would like to suggest?
+                {!suggestions && <span style={{ color: "red" }}>*</span>}
+              </div>
 
               <TextField
                 variant="outlined"
@@ -232,8 +216,9 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
               />
 
               <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem" ,fontSize: "1.2rem"}}>
-                Is there anything else you would like to share with us? (Optional)
+                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+                  Is there anything else you would like to share with us?
+                  (Optional)
                 </Box>
               </Stack>
               <TextField
@@ -247,12 +232,12 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
               />
 
               <Stack direction="row" alignItems="center">
-                <Box sx={{ marginTop: "1rem",fontSize: "1.2rem" }}>
-                Please enter your email address if you would like us to follow
-                up (Optional)
+                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+                  Please enter your email address if you would like us to follow
+                  up (Optional)
                 </Box>
               </Stack>
-              
+
               <TextField
                 variant="outlined"
                 value={followUpEmail}
