@@ -13,8 +13,9 @@ import {
   Radio,
   RadioGroup,
   FormHelperText,
+  Stack,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import { Box, styled } from "@mui/system";
 import CloseIcon from "@mui/icons-material/Close";
 import "./SendForm.css";
 
@@ -55,10 +56,10 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!role) {
+    if (!role || !recommendation || !suggestions ||!experienceRating) {
       return;
     }
-    debugger;
+
     const formData = {
       name,
       email,
@@ -103,9 +104,15 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
           </StyledDialogTitle>
           <DialogContent>
             <form onSubmit={handleSubmit}>
-              <Typography sx={{ fontWeight: "semi-bold", marginTop: "1rem" }}>
+              
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem" ,fontSize: "1.2rem" }}>
                 Are you a:
-              </Typography>
+                </Box>
+                {!role && (
+                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
+                )}
+              </Stack>
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
                   row
@@ -129,9 +136,6 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                     label="Other"
                   />
                 </RadioGroup>
-                {!role && (
-                  <FormHelperText error>Please select a role</FormHelperText>
-                )}
               </FormControl>
 
               {role === "Other" && ( // Render the text field if role is "Other"
@@ -145,10 +149,15 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 />
               )}
 
-              <Typography sx={{ marginTop: "0.5rem" }}>
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem" , fontSize: "1.2rem"}}>
                 On a scale of 1 to 5, how would you rate your apartment finding
                 experience through short videos on Proppy?
-              </Typography>
+                </Box>
+                {!experienceRating && (
+                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
+                )}
+              </Stack>
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
                   row
@@ -171,10 +180,16 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 </RadioGroup>
               </FormControl>
 
-              <Typography sx={{ marginTop: "1rem" }}>
-                Would you recommend Proppy to your friends who are looking for
-                apartments?
-              </Typography>
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+                  Would you recommend Proppy to your friends who are looking for
+                  apartments?
+                </Box>
+                {!recommendation && (
+                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
+                )}
+              </Stack>
+
               <FormControl component="fieldset" margin="normal">
                 <RadioGroup
                   row
@@ -196,9 +211,14 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 </RadioGroup>
               </FormControl>
 
-              <Typography sx={{ marginTop: "1rem" }}>
-                Any new features or improvements you would like to suggest?
-              </Typography>
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem", fontSize: "1.2rem" }}>
+                Any new features or improvements you would like to suggest? 
+                </Box>
+                {!suggestions && (
+                  <Box sx={{ color: "red", marginLeft: "0.2rem" }}>*</Box>
+                )}
+              </Stack>
 
               <TextField
                 variant="outlined"
@@ -211,9 +231,11 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 tyle={{ display: "block" }}
               />
 
-              <Typography sx={{ marginTop: "1rem" }}>
-                Is there anything else you would like to share with us?
-              </Typography>
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem" ,fontSize: "1.2rem"}}>
+                Is there anything else you would like to share with us? (Optional)
+                </Box>
+              </Stack>
               <TextField
                 variant="outlined"
                 value={additionalComments}
@@ -224,9 +246,13 @@ const VideosEndForm = ({ onClose, onSubmit }) => {
                 margin="normal"
               />
 
-              <Typography sx={{ marginTop: "1rem" }}>
-              Please enter your email address if you would like us to follow up
-              </Typography>
+              <Stack direction="row" alignItems="center">
+                <Box sx={{ marginTop: "1rem",fontSize: "1.2rem" }}>
+                Please enter your email address if you would like us to follow
+                up (Optional)
+                </Box>
+              </Stack>
+              
               <TextField
                 variant="outlined"
                 value={followUpEmail}
